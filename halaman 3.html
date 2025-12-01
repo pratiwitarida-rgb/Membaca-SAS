@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Huruf - Mari Membaca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #b3e0ff 0%, #e6f7ff 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 120, 215, 0.2);
+            overflow: hidden;
+            padding: 30px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, #87ceeb, #b3e0ff, #87ceeb);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            margin-bottom: 15px;
+        }
+        
+        .logo i {
+            font-size: 3rem;
+            color: #87ceeb;
+        }
+        
+        h1 {
+            color: #2c7fb8;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            color: #5a9bc6;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        .instruction {
+            background: #f0f9ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            border-left: 4px solid #5a9bc6;
+        }
+        
+        .instruction p {
+            color: #2c7fb8;
+            font-weight: 500;
+            margin: 0;
+        }
+        
+        .alphabet-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .letter-btn {
+            background: linear-gradient(135deg, #b3e0ff 0%, #e6f7ff 100%);
+            border: none;
+            border-radius: 12px;
+            height: 80px;
+            color: #2c7fb8;
+            font-size: 2.2rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .letter-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(135, 206, 235, 0.4);
+            background: linear-gradient(135deg, #a3d0ef 0%, #d6f0ff 100%);
+        }
+        
+        .letter-btn:active {
+            transform: translateY(0);
+        }
+        
+        .letter-btn.playing {
+            background: linear-gradient(135deg, #5a9bc6 0%, #2c7fb8 100%);
+            color: white;
+            animation: pulse 0.5s ease;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .current-letter {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .current-letter-display {
+            font-size: 8rem;
+            color: #2c7fb8;
+            font-weight: bold;
+            text-shadow: 3px 3px 0px rgba(135, 206, 235, 0.5);
+            margin-bottom: 10px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .letter-name {
+            font-size: 1.5rem;
+            color: #5a9bc6;
+            font-weight: 500;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #5a9bc6;
+            border: 2px solid #b3e0ff;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        
+        .back-btn:hover {
+            background: #e6f7ff;
+            color: #2c7fb8;
+            transform: translateY(-3px);
+        }
+        
+        .back-btn i {
+            margin-right: 8px;
+        }
+        
+        .cloud {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            opacity: 0.7;
+            z-index: -1;
+        }
+        
+        .cloud-1 {
+            width: 120px;
+            height: 40px;
+            top: 10%;
+            left: 5%;
+            animation: float 20s infinite linear;
+        }
+        
+        .cloud-2 {
+            width: 180px;
+            height: 60px;
+            bottom: 15%;
+            right: 5%;
+            animation: float 25s infinite linear reverse;
+        }
+        
+        .cloud-3 {
+            width: 100px;
+            height: 35px;
+            top: 40%;
+            right: 10%;
+            animation: float 18s infinite linear;
+        }
+        
+        .floating-books {
+            position: fixed;
+            font-size: 1.8rem;
+            color: #87ceeb;
+            opacity: 0.7;
+            z-index: -1;
+        }
+        
+        .book-1 {
+            top: 15%;
+            right: 8%;
+            animation: float 15s infinite linear;
+        }
+        
+        .book-2 {
+            bottom: 20%;
+            left: 8%;
+            animation: float 18s infinite linear reverse;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .alphabet-container {
+                grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+                gap: 10px;
+            }
+            
+            .letter-btn {
+                height: 70px;
+                font-size: 1.8rem;
+            }
+            
+            .current-letter-display {
+                font-size: 6rem;
+                min-height: 100px;
+            }
+            
+            .floating-books {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    
+    <div class="floating-books book-1">
+        <i class="fas fa-book-open"></i>
+    </div>
+    <div class="floating-books book-2">
+        <i class="fas fa-book"></i>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-font"></i>
+            </div>
+            
+            <h1>Belajar Huruf</h1>
+            <p class="subtitle">Mengenal pengucapan huruf A sampai Z</p>
+        </div>
+        
+        <div class="instruction">
+            <p><i class="fas fa-volume-up"></i> Klik pada huruf untuk mendengar suaranya</p>
+        </div>
+        
+        <div class="current-letter">
+            <div class="current-letter-display" id="current-letter">A</div>
+            <div class="letter-name" id="letter-name">A - [a]</div>
+        </div>
+        
+        <div class="alphabet-container" id="alphabet-container">
+            <!-- Tombol huruf akan di-generate oleh JavaScript -->
+        </div>
+        
+        <div style="text-align: center;">
+            <button class="back-btn" id="back-btn">
+                <i class="fas fa-arrow-left"></i> Kembali ke Menu
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Data huruf alfabet dengan pengucapan Bahasa Indonesia
+        const alphabet = [
+            { letter: 'A', pronunciation: 'a' },
+            { letter: 'B', pronunciation: 'be' },
+            { letter: 'C', pronunciation: 'ce' },
+            { letter: 'D', pronunciation: 'de' },
+            { letter: 'E', pronunciation: 'e' },
+            { letter: 'F', pronunciation: 'ef' },
+            { letter: 'G', pronunciation: 'ge' },
+            { letter: 'H', pronunciation: 'ha' },
+            { letter: 'I', pronunciation: 'i' },
+            { letter: 'J', pronunciation: 'je' },
+            { letter: 'K', pronunciation: 'ka' },
+            { letter: 'L', pronunciation: 'el' },
+            { letter: 'M', pronunciation: 'em' },
+            { letter: 'N', pronunciation: 'en' },
+            { letter: 'O', pronunciation: 'o' },
+            { letter: 'P', pronunciation: 'pe' },
+            { letter: 'Q', pronunciation: 'ki' },
+            { letter: 'R', pronunciation: 'er' },
+            { letter: 'S', pronunciation: 'es' },
+            { letter: 'T', pronunciation: 'te' },
+            { letter: 'U', pronunciation: 'u' },
+            { letter: 'V', pronunciation: 've' },
+            { letter: 'W', pronunciation: 'we' },
+            { letter: 'X', pronunciation: 'eks' },
+            { letter: 'Y', pronunciation: 'ye' },
+            { letter: 'Z', pronunciation: 'zet' }
+        ];
+
+        // Elemen DOM
+        const alphabetContainer = document.getElementById('alphabet-container');
+        const currentLetterDisplay = document.getElementById('current-letter');
+        const letterNameDisplay = document.getElementById('letter-name');
+        const backBtn = document.getElementById('back-btn');
+
+        let currentLetter = 'A';
+        let speechSynth = window.speechSynthesis;
+
+        // Fungsi untuk mengucapkan huruf dalam Bahasa Indonesia
+        function speakLetter(letter, pronunciation) {
+            if (speechSynth.speaking) {
+                speechSynth.cancel();
+            }
+            
+            const utterance = new SpeechSynthesisUtterance(pronunciation);
+            utterance.lang = 'id-ID';
+            utterance.rate = 0.8;
+            utterance.pitch = 1;
+            
+            speechSynth.speak(utterance);
+        }
+
+        // Fungsi untuk membuat tombol huruf
+        function createLetterButtons() {
+            alphabet.forEach(item => {
+                const button = document.createElement('button');
+                button.className = 'letter-btn';
+                button.textContent = item.letter;
+                button.setAttribute('data-letter', item.letter);
+                button.setAttribute('data-pronunciation', item.pronunciation);
+                
+                button.addEventListener('click', function() {
+                    const letter = this.getAttribute('data-letter');
+                    const pronunciation = this.getAttribute('data-pronunciation');
+                    
+                    // Update tampilan huruf saat ini
+                    currentLetter = letter;
+                    currentLetterDisplay.textContent = letter;
+                    letterNameDisplay.textContent = `${letter} - [${pronunciation}]`;
+                    
+                    // Efek visual
+                    document.querySelectorAll('.letter-btn').forEach(btn => {
+                        btn.classList.remove('playing');
+                    });
+                    this.classList.add('playing');
+                    
+                    // Mengucapkan huruf dalam Bahasa Indonesia
+                    speakLetter(letter, pronunciation);
+                });
+                
+                alphabetContainer.appendChild(button);
+            });
+        }
+
+        // Event Listeners
+        backBtn.addEventListener('click', function() {
+            window.history.back();
+        });
+
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            createLetterButtons();
+            
+            // Animasi saat halaman dimuat
+            const letterButtons = document.querySelectorAll('.letter-btn');
+            letterButtons.forEach((button, index) => {
+                button.style.opacity = '0';
+                button.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    button.style.transition = 'all 0.5s ease';
+                    button.style.opacity = '1';
+                    button.style.transform = 'translateY(0)';
+                }, 100 + (index * 50));
+            });
+            
+            // Animasi untuk elemen cloud dan buku
+            const clouds = document.querySelectorAll('.cloud');
+            const books = document.querySelectorAll('.floating-books');
+            
+            clouds.forEach(cloud => {
+                cloud.style.animationDelay = Math.random() * 5 + 's';
+            });
+            
+            books.forEach(book => {
+                book.style.animationDelay = Math.random() * 3 + 's';
+            });
+        });
+    </script>
+</body>
+</html>

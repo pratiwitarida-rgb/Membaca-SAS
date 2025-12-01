@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Kalimat - Mari Membaca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #b3e0ff 0%, #e6f7ff 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 120, 215, 0.2);
+            overflow: hidden;
+            padding: 30px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, #87ceeb, #b3e0ff, #87ceeb);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            margin-bottom: 15px;
+        }
+        
+        .logo i {
+            font-size: 3rem;
+            color: #87ceeb;
+        }
+        
+        h1 {
+            color: #2c7fb8;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            color: #5a9bc6;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        .input-section {
+            background: #f0f9ff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 4px solid #5a9bc6;
+            text-align: center;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .sentence-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #b3e0ff;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .sentence-input:focus {
+            border-color: #5a9bc6;
+            box-shadow: 0 0 0 3px rgba(90, 155, 198, 0.1);
+        }
+        
+        .analyze-btn {
+            background: linear-gradient(135deg, #5a9bc6 0%, #2c7fb8 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 127, 184, 0.3);
+        }
+        
+        .input-hint {
+            color: #5a9bc6;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .diamond-analysis {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 2px solid #e6f7ff;
+        }
+        
+        .diamond-analysis h2 {
+            color: #2c7fb8;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        .analysis-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .flow-level {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            padding: 10px 0;
+        }
+        
+        .level-label {
+            width: 120px;
+            text-align: right;
+            font-weight: 600;
+            color: #5a9bc6;
+            font-size: 0.9rem;
+        }
+        
+        .level-content {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex: 1;
+        }
+        
+        .analysis-item {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-align: center;
+            min-width: 50px;
+        }
+        
+        .sentence-item {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white;
+            font-size: 1.2rem;
+            padding: 12px 25px;
+            border: 2px solid #ff5252;
+        }
+        
+        .word-item {
+            background: linear-gradient(135deg, #4ecdc4 0%, #6ee7e7 100%);
+            color: white;
+            font-size: 1rem;
+            padding: 10px 15px;
+            border: 2px solid #26a69a;
+        }
+        
+        .syllable-item {
+            background: linear-gradient(135deg, #45b7d1 0%, #67d7f5 100%);
+            color: white;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            border: 2px solid #29b6f6;
+        }
+        
+        .letter-item {
+            background: linear-gradient(135deg, #96ceb4 0%, #b4e6c8 100%);
+            color: white;
+            font-size: 0.8rem;
+            padding: 6px 10px;
+            border: 2px solid #66bb6a;
+            min-width: 35px;
+        }
+        
+        .arrow-down {
+            width: 2px;
+            height: 20px;
+            background: #5a9bc6;
+            margin: 5px 0;
+            position: relative;
+        }
+        
+        .arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: -4px;
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid #5a9bc6;
+            border-bottom: 2px solid #5a9bc6;
+            transform: rotate(45deg);
+        }
+        
+        .arrow-up {
+            width: 2px;
+            height: 20px;
+            background: #5a9bc6;
+            margin: 5px 0;
+            position: relative;
+        }
+        
+        .arrow-up::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -4px;
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid #5a9bc6;
+            border-bottom: 2px solid #5a9bc6;
+            transform: rotate(-135deg);
+        }
+        
+        .analysis-explanation {
+            background: #e6f7ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            border-left: 4px solid #5a9bc6;
+        }
+        
+        .analysis-explanation h3 {
+            color: #2c7fb8;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .explanation-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .explanation-step {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-number {
+            background: #2c7fb8;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+        }
+        
+        .step-text {
+            color: #5a9bc6;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #5a9bc6;
+            border: 2px solid #b3e0ff;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        
+        .back-btn:hover {
+            background: #e6f7ff;
+            color: #2c7fb8;
+            transform: translateY(-3px);
+        }
+        
+        .back-btn i {
+            margin-right: 8px;
+        }
+        
+        .cloud {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            opacity: 0.7;
+            z-index: -1;
+        }
+        
+        .cloud-1 {
+            width: 120px;
+            height: 40px;
+            top: 10%;
+            left: 5%;
+            animation: float 20s infinite linear;
+        }
+        
+        .cloud-2 {
+            width: 180px;
+            height: 60px;
+            bottom: 15%;
+            right: 5%;
+            animation: float 25s infinite linear reverse;
+        }
+        
+        .cloud-3 {
+            width: 100px;
+            height: 35px;
+            top: 40%;
+            right: 10%;
+            animation: float 18s infinite linear;
+        }
+        
+        .floating-books {
+            position: fixed;
+            font-size: 1.8rem;
+            color: #87ceeb;
+            opacity: 0.7;
+            z-index: -1;
+        }
+        
+        .book-1 {
+            top: 15%;
+            right: 8%;
+            animation: float 15s infinite linear;
+        }
+        
+        .book-2 {
+            bottom: 20%;
+            left: 8%;
+            animation: float 18s infinite linear reverse;
+        }
+        
+        /* Gaya untuk fitur latihan */
+        .practice-section {
+            background: #f0f9ff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border-left: 4px solid #5a9bc6;
+            text-align: center;
+            display: none;
+        }
+        
+        .practice-section h2 {
+            color: #2d81b9;
+            margin-bottom: 20px;
+        }
+        
+        .practice-instructions {
+            color: rgb(90, 155, 198);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        .current-sentence-container {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            border: 2px solid #ff5252;
+        }
+        
+        .current-sentence-label {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .current-sentence {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .practice-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .practice-item {
+            background: rgb(90, 155, 220);
+            padding: 10px 15px;
+            border-radius: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-align: center;
+            min-width: 50px;
+        }
+        
+        .practice-blank {
+            background: #f8f9fa;
+            border: 2px dashed #b3e0ff;
+            color: transparent;
+            min-width: 70px;
+            min-height: 45px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .practice-blank::after {
+            content: '?';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #b3e0ff;
+            font-size: 1.2rem;
+        }
+        
+        .practice-blank.selected {
+            border: 2px dashed #2c7fb8;
+            background: #e6f7ff;
+            transform: scale(1.05);
+        }
+        
+        .practice-blank.selected::after {
+            color: #2c7fb8;
+        }
+        
+        .arrow-with-options {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .blank-options {
+            display: none;
+            flex-wrap: nowrap;
+            gap: 8px;
+            justify-content: center;
+            padding: 10px;
+            background: #e6f7ff;
+            border-radius: 10px;
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            animation: expandOptions 0.3s ease-out;
+            border: 2px solid #b3e0ff;
+            margin-top: 5px;
+            overflow-x: auto;
+        }
+        
+        .blank-options.single-row {
+            flex-wrap: nowrap;
+            justify-content: center;
+        }
+        
+        .blank-options::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #e6f7ff;
+        }
+        
+        .blank-option {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .blank-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            border-color: #5a9bc6;
+        }
+        
+        .blank-option:active {
+            transform: scale(0.95);
+        }
+        
+        .blank-option.correct {
+            background: linear-gradient(135deg, #96ceb4 0%, #b4e6c8 100%);
+            color: white;
+            border-color: #66bb6a;
+        }
+        
+        .blank-option.incorrect {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white;
+            border-color: #ff5252;
+        }
+        
+        .practice-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .practice-result.correct {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 2px solid #a5d6a7;
+        }
+        
+        .practice-result.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border: 2px solid #ef9a9a;
+        }
+        
+        .practice-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .practice-btn {
+            background: linear-gradient(135deg, #5a9bc6 0%, #2c7fb8 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .practice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 127, 184, 0.3);
+        }
+        
+        .practice-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .practice-toggle {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .toggle-practice-btn {
+            background: linear-gradient(135deg, #ffa726 0%, #ff9800 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toggle-practice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+        }
+        
+        .option-instruction {
+            color: #5a9bc6;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            width: 100%;
+        }
+        
+        .guide-text {
+            color: #5a9bc6;
+            font-size: 0.8rem;
+            font-style: italic;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .sound-indicator {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 16px;
+            height: 16px;
+            background: #ff9800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes expandOptions {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8); 
+                max-height: 0;
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1); 
+                max-height: 200px;
+            }
+        }
+        
+        .correct-answer {
+            animation: pulse 0.5s ease;
+        }
+        
+        .flow-level.expanded {
+            margin: 15px 0;
+            padding: 15px 0;
+            background: rgba(230, 247, 255, 0.5);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Media query untuk PC (layar besar) */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1200px;
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .input-section {
+                padding: 30px;
+            }
+
+            .sentence-input {
+                padding: 18px 25px;
+                font-size: 1.2rem;
+            }
+
+            .analyze-btn {
+                padding: 18px 35px;
+                font-size: 1.2rem;
+            }
+
+            .diamond-analysis {
+                padding: 40px;
+            }
+
+            .diamond-analysis h2 {
+                font-size: 1.8rem;
+            }
+
+            .analysis-flow {
+                max-width: 900px;
+            }
+
+            .level-label {
+                width: 140px;
+                font-size: 1rem;
+            }
+
+            .analysis-item {
+                padding: 12px 18px;
+                font-size: 1.1rem;
+                min-width: 60px;
+            }
+
+            .sentence-item {
+                font-size: 1.4rem;
+                padding: 14px 30px;
+            }
+
+            .word-item {
+                font-size: 1.1rem;
+                padding: 12px 18px;
+            }
+
+            .syllable-item {
+                font-size: 1rem;
+                padding: 10px 14px;
+            }
+
+            .letter-item {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+                min-width: 40px;
+            }
+
+            .practice-section {
+                padding: 30px;
+            }
+
+            .practice-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .current-sentence {
+                font-size: 1.5rem;
+            }
+
+            .practice-instructions {
+                font-size: 1.1rem;
+            }
+
+            .practice-item {
+                padding: 12px 18px;
+                font-size: 1.1rem;
+                min-width: 60px;
+            }
+
+            .practice-blank {
+                min-width: 80px;
+                min-height: 50px;
+            }
+
+            .blank-option {
+                padding: 10px 14px;
+                font-size: 1rem;
+            }
+
+            .back-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Media query untuk tablet dan mobile (layar sedang) */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .input-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .sentence-input {
+                padding: 14px 18px;
+                font-size: 1rem;
+            }
+
+            .analyze-btn {
+                padding: 14px 28px;
+                font-size: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .diamond-analysis {
+                padding: 25px;
+            }
+
+            .diamond-analysis h2 {
+                font-size: 1.4rem;
+            }
+
+            .analysis-flow {
+                max-width: 100%;
+            }
+
+            .flow-level {
+                flex-direction: column;
+                gap: 8px;
+                padding: 8px 0;
+            }
+
+            .level-label {
+                width: 100%;
+                text-align: center;
+                font-size: 0.95rem;
+            }
+
+            .level-content {
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .analysis-item {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+                min-width: 45px;
+            }
+
+            .sentence-item {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+
+            .word-item {
+                font-size: 0.95rem;
+                padding: 9px 14px;
+            }
+
+            .syllable-item {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+            }
+
+            .letter-item {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+                min-width: 35px;
+            }
+
+            .arrow-down,
+            .arrow-up {
+                height: 15px;
+            }
+
+            .analysis-explanation {
+                padding: 18px;
+            }
+
+            .analysis-explanation h3 {
+                font-size: 1.3rem;
+            }
+
+            .explanation-steps {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .explanation-step {
+                padding: 12px;
+            }
+
+            .step-text {
+                font-size: 0.85rem;
+            }
+
+            .practice-section {
+                padding: 20px;
+            }
+
+            .practice-section h2 {
+                font-size: 1.3rem;
+            }
+
+            .current-sentence-container {
+                padding: 12px;
+            }
+
+            .current-sentence {
+                font-size: 1.1rem;
+            }
+
+            .current-sentence-label {
+                font-size: 0.9rem;
+            }
+
+            .practice-instructions {
+                font-size: 0.95rem;
+            }
+
+            .practice-flow {
+                max-width: 100%;
+            }
+
+            .practice-item {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+                min-width: 45px;
+            }
+
+            .practice-blank {
+                min-width: 65px;
+                min-height: 42px;
+            }
+
+            .practice-blank::after {
+                font-size: 1.1rem;
+            }
+
+            .arrow-with-options {
+                gap: 8px;
+            }
+
+            .blank-options {
+                width: 95%;
+                padding: 8px;
+                gap: 6px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .blank-option {
+                padding: 7px 10px;
+                font-size: 0.85rem;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .practice-controls {
+                flex-direction: column;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .practice-btn {
+                padding: 10px 22px;
+                font-size: 0.95rem;
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .toggle-practice-btn {
+                padding: 10px 22px;
+                font-size: 0.95rem;
+            }
+
+            .back-btn {
+                padding: 10px 22px;
+                font-size: 0.95rem;
+            }
+
+            .floating-books {
+                display: none;
+            }
+
+            .cloud {
+                display: none;
+            }
+
+            .sound-indicator {
+                width: 14px;
+                height: 14px;
+                font-size: 0.5rem;
+            }
+        }
+
+        /* Media query untuk HP kecil (layar sangat kecil) */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 15px 10px;
+            }
+
+            .header {
+                margin-bottom: 20px;
+            }
+
+            .logo i {
+                font-size: 2.5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .input-section {
+                padding: 18px;
+            }
+
+            .input-group {
+                gap: 12px;
+            }
+
+            .sentence-input {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+
+            .analyze-btn {
+                padding: 12px 24px;
+                font-size: 0.95rem;
+            }
+
+            .input-hint {
+                font-size: 0.85rem;
+            }
+
+            .diamond-analysis {
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            .diamond-analysis h2 {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+            }
+
+            .flow-level {
+                gap: 6px;
+                padding: 6px 0;
+            }
+
+            .level-label {
+                font-size: 0.9rem;
+            }
+
+            .analysis-item {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+                min-width: 40px;
+            }
+
+            .sentence-item {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .word-item {
+                font-size: 0.85rem;
+                padding: 7px 12px;
+            }
+
+            .syllable-item {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+
+            .letter-item {
+                font-size: 0.75rem;
+                padding: 5px 8px;
+                min-width: 30px;
+            }
+
+            .analysis-explanation {
+                padding: 15px;
+                margin-top: 20px;
+            }
+
+            .analysis-explanation h3 {
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+            }
+
+            .explanation-step {
+                padding: 10px;
+            }
+
+            .step-number {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
+            }
+
+            .step-text {
+                font-size: 0.8rem;
+            }
+
+            .practice-section {
+                padding: 15px;
+                margin-top: 20px;
+            }
+
+            .practice-section h2 {
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+            }
+
+            .current-sentence-container {
+                padding: 10px;
+                margin-bottom: 20px;
+            }
+
+            .current-sentence {
+                font-size: 1rem;
+            }
+
+            .current-sentence-label {
+                font-size: 0.85rem;
+            }
+
+            .practice-instructions {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+
+            .practice-item {
+                padding: 6px 10px;
+                font-size: 0.85rem;
+                min-width: 40px;
+            }
+
+            .practice-blank {
+                min-width: 55px;
+                min-height: 38px;
+            }
+
+            .practice-blank::after {
+                font-size: 1rem;
+            }
+
+            .blank-options {
+                width: 100%;
+                padding: 6px;
+                gap: 4px;
+            }
+
+            .blank-option {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+            }
+
+            .practice-result {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            .practice-controls {
+                gap: 10px;
+            }
+
+            .practice-btn {
+                padding: 8px 18px;
+                font-size: 0.9rem;
+                max-width: 180px;
+            }
+
+            .toggle-practice-btn {
+                padding: 8px 18px;
+                font-size: 0.9rem;
+            }
+
+            .back-btn {
+                padding: 8px 18px;
+                font-size: 0.9rem;
+                margin-top: 15px;
+            }
+
+            .sound-indicator {
+                width: 12px;
+                height: 12px;
+                font-size: 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    
+    <div class="floating-books book-1">
+        <i class="fas fa-book-open"></i>
+    </div>
+    <div class="floating-books book-2">
+        <i class="fas fa-book"></i>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-align-left"></i>
+            </div>
+            
+            <h1>Analisis Kalimat</h1>
+            <p class="subtitle">Pelajari struktur kalimat menggunakan metode SAS</p>
+        </div>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <input type="text" class="sentence-input" id="sentence-input" 
+                       placeholder="Ketik kalimat yang ingin dianalisis..." maxlength="50">
+                <button class="analyze-btn" id="analyze-btn">
+                    <i class="fas fa-search"></i> Analisis
+                </button>
+            </div>
+            <div class="input-hint">
+                Contoh: "Ibu memasak nasi" atau "Ayah pergi ke kantor"
+            </div>
+        </div>
+        
+        <div class="diamond-analysis" id="diamond-analysis" style="display: none;">
+            <h2>Analisis metode SAS</h2>
+            <div class="analysis-flow" id="analysis-flow">
+                <!-- Analisis ketupat akan di-generate oleh JavaScript -->
+            </div>
+            
+            <div class="analysis-explanation">
+                <h3><i class="fas fa-lightbulb"></i> Proses Analisis</h3>
+                <div class="explanation-steps">
+                    <div class="explanation-step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Kalimat utuh dipisah menjadi kata-kata</div>
+                    </div>
+                    <div class="explanation-step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Setiap kata dipecah menjadi suku kata</div>
+                    </div>
+                    <div class="explanation-step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Suku kata diurai menjadi huruf-huruf</div>
+                    </div>
+                    <div class="explanation-step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Huruf digabung kembali menjadi suku kata</div>
+                    </div>
+                    <div class="explanation-step">
+                        <div class="step-number">5</div>
+                        <div class="step-text">Suku kata disusun menjadi kata</div>
+                    </div>
+                    <div class="explanation-step">
+                        <div class="step-number">6</div>
+                        <div class="step-text">Kata digabung menjadi kalimat utuh</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="practice-toggle">
+                <button class="toggle-practice-btn" id="toggle-practice-btn">
+                    <i class="fas fa-pencil-alt"></i> Coba Latihan dengan Kalimat Ini
+                </button>
+            </div>
+        </div>
+        
+        <div class="practice-section" id="practice-section">
+            <h2><i class="fas fa-pencil-alt"></i> Latihan Analisis Kalimat</h2>
+            
+            <div class="current-sentence-container">
+                <div class="current-sentence-label">Kalimat yang digunakan:</div>
+                <div class="current-sentence" id="current-sentence">
+                    <!-- Kalimat yang sedang dilatih akan ditampilkan di sini -->
+                </div>
+            </div>
+            
+            <p class="practice-instructions">
+                Klik pada bagian yang bertanda <strong>?</strong> untuk memilih jawaban yang tepat!
+                <br><span class="guide-text">Kotak yang berisi teks adalah petunjuk untuk membantu Anda memilih jawaban</span>
+                <br><span class="guide-text">🔊 Klik opsi jawaban untuk mendengar pengucapannya</span>
+            </p>
+            
+            <div class="practice-flow" id="practice-flow">
+                <!-- Latihan ketupat akan di-generate oleh JavaScript -->
+            </div>
+            
+            <div class="practice-result" id="practice-result"></div>
+            
+            <div class="practice-controls">
+                <button class="practice-btn" id="reset-practice">
+                    <i class="fas fa-redo"></i> Ulang Latihan
+                </button>
+                <button class="practice-btn" id="close-practice">
+                    <i class="fas fa-times"></i> Tutup Latihan
+                </button>
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <button class="back-btn" id="back-btn">
+                <i class="fas fa-arrow-left"></i> Kembali ke Menu
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Elemen DOM
+        const sentenceInput = document.getElementById('sentence-input');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const diamondAnalysis = document.getElementById('diamond-analysis');
+        const analysisFlow = document.getElementById('analysis-flow');
+        const backBtn = document.getElementById('back-btn');
+        
+        // Elemen untuk fitur latihan
+        const togglePracticeBtn = document.getElementById('toggle-practice-btn');
+        const practiceSection = document.getElementById('practice-section');
+        const currentSentenceElement = document.getElementById('current-sentence');
+        const practiceFlow = document.getElementById('practice-flow');
+        const practiceResult = document.getElementById('practice-result');
+        const resetPracticeBtn = document.getElementById('reset-practice');
+        const closePracticeBtn = document.getElementById('close-practice');
+
+        // Kamus suku kata untuk analisis otomatis
+        const syllableDictionary = {
+            // Kata-kata umum
+            "ibu": ["i", "bu"],
+            "ayah": ["a", "yah"],
+            "adik": ["a", "dik"],
+            "kakak": ["ka", "kak"],
+            "nenek": ["ne", "nek"],
+            "anak": ["a", "nak"],
+            "memasak": ["me", "ma", "sak"],
+            "membaca": ["mem", "ba", "ca"],
+            "bermain": ["ber", "ma", "in"],
+            "menanam": ["me", "na", "nam"],
+            "membeli": ["mem", "be", "li"],
+            "menulis": ["me", "nu", "lis"],
+            "pergi": ["per", "gi"],
+            "bekerja": ["be", "ker", "ja"],
+            "berlari": ["ber", "la", "ri"],
+            "minum": ["mi", "num"],
+            "nasi": ["na", "si"],
+            "buku": ["bu", "ku"],
+            "bola": ["bo", "la"],
+            "bunga": ["bu", "nga"],
+            "sayur": ["sa", "yur"],
+            "koran": ["ko", "ran"],
+            "susu": ["su", "su"],
+            "surat": ["su", "rat"],
+            "kecil": ["ke", "cil"],
+            "di": ["di"],
+            "ke": ["ke"],
+            "dari": ["da", "ri"],
+            "pada": ["pa", "da"],
+            "dengan": ["de", "ngan"],
+            "yang": ["yang"],
+            "saya": ["sa", "ya"],
+            "kamu": ["ka", "mu"],
+            "dia": ["di", "a"],
+            "mereka": ["me", "re", "ka"],
+            "kami": ["ka", "mi"],
+            "kita": ["ki", "ta"]
+        };
+
+        // Database distraktor untuk setiap level
+        const distractorDatabase = {
+            // Distraktor untuk level kata (kata-kata umum)
+            words: ["ibu", "ayah", "adik", "kakak", "nenek", "anak", "nasi", "buku", "bola", "bunga", "sayur", "koran", "susu", "surat", "kecil", "besar", "tinggi", "pendek", "panjang", "pendek"],
+            
+            // Distraktor untuk level suku kata (suku kata umum)
+            syllables: ["me", "ma", "sa", "ka", "bu", "ku", "la", "di", "pa", "ta", "ri", "na", "nga", "an", "in", "er", "per", "ber", "ter", "mem"],
+            
+            // Distraktor untuk level huruf (huruf konsonan dan vokal)
+            letters: ["a", "i", "u", "e", "o", "b", "c", "d", "g", "h", "j", "k", "l", "m", "n", "p", "r", "s", "t", "w", "y"]
+        };
+
+        // Variabel untuk menyimpan data analisis saat ini
+        let currentAnalysisData = null;
+        let selectedOption = null;
+        let blankToFill = null;
+        let currentBlankOptions = [];
+
+        // Fungsi untuk membuat efek suara
+        function playSound(isCorrect) {
+            // Buat konteks audio
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            if (isCorrect) {
+                // Suara untuk jawaban benar (nada naik)
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } else {
+                // Suara untuk jawaban salah (nada turun)
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.setValueAtTime(392.00, audioContext.currentTime); // G4
+                oscillator.frequency.setValueAtTime(329.63, audioContext.currentTime + 0.1); // E4
+                oscillator.frequency.setValueAtTime(261.63, audioContext.currentTime + 0.2); // C4
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+        }
+
+        // Fungsi untuk mengucapkan teks menggunakan Web Speech API
+        function speakText(text) {
+            // Cek apakah browser mendukung Web Speech API
+            if ('speechSynthesis' in window) {
+                // Hentikan pengucapan sebelumnya jika ada
+                window.speechSynthesis.cancel();
+                
+                // Buat objek SpeechSynthesisUtterance
+                const utterance = new SpeechSynthesisUtterance(text);
+                
+                // Setel bahasa ke Indonesia
+                utterance.lang = 'id-ID';
+                
+                // Setel kecepatan dan pitch
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                
+                // Mulai pengucapan
+                window.speechSynthesis.speak(utterance);
+                
+                return true;
+            } else {
+                console.log('Web Speech API tidak didukung di browser ini');
+                return false;
+            }
+        }
+
+        // Fungsi untuk memecah kata menjadi suku kata (otomatis)
+        function splitIntoSyllables(word) {
+            const lowerWord = word.toLowerCase();
+            if (syllableDictionary[lowerWord]) {
+                return syllableDictionary[lowerWord];
+            }
+            
+            // Fallback: pecah berdasarkan pola sederhana
+            const syllables = [];
+            let currentSyllable = '';
+            
+            for (let i = 0; i < word.length; i++) {
+                currentSyllable += word[i];
+                const isVowel = /[aeiou]/i.test(word[i]);
+                const nextIsVowel = i < word.length - 1 ? /[aeiou]/i.test(word[i + 1]) : false;
+                
+                if (isVowel && !nextIsVowel && currentSyllable.length > 1) {
+                    syllables.push(currentSyllable);
+                    currentSyllable = '';
+                }
+            }
+            
+            if (currentSyllable) {
+                syllables.push(currentSyllable);
+            }
+            
+            return syllables.length > 0 ? syllables : [word];
+        }
+
+        // Fungsi untuk memecah kata menjadi huruf
+        function splitIntoLetters(syllable) {
+            return syllable.split('');
+        }
+
+        // Fungsi untuk menganalisis kalimat custom
+        function analyzeCustomSentence(sentence) {
+            const words = sentence.split(' ').filter(word => word.length > 0);
+            const syllables = {};
+            
+            words.forEach(word => {
+                syllables[word] = splitIntoSyllables(word);
+            });
+            
+            return {
+                sentence: sentence,
+                words: words,
+                syllables: syllables
+            };
+        }
+
+        // Fungsi untuk menampilkan analisis pola ketupat
+        function showDiamondAnalysis(sentenceData) {
+            diamondAnalysis.style.display = 'block';
+            analysisFlow.innerHTML = '';
+            
+            // Level 1: Kalimat utuh
+            addFlowLevel("Kalimat:", [sentenceData.sentence], "sentence-item");
+            addArrow("down");
+            
+            // Level 2: Kata-kata
+            addFlowLevel("Kata-kata:", sentenceData.words, "word-item");
+            addArrow("down");
+            
+            // Level 3: Suku kata untuk setiap kata
+            const allSyllables = [];
+            sentenceData.words.forEach(word => {
+                allSyllables.push(...sentenceData.syllables[word]);
+            });
+            addFlowLevel("Suku Kata:", allSyllables, "syllable-item");
+            addArrow("down");
+            
+            // Level 4: Huruf-huruf untuk setiap suku kata
+            const allLetters = [];
+            sentenceData.words.forEach(word => {
+                sentenceData.syllables[word].forEach(syllable => {
+                    allLetters.push(...splitIntoLetters(syllable));
+                });
+            });
+            addFlowLevel("Huruf:", allLetters, "letter-item");
+            addArrow("up");
+            
+            // Level 5: Kembali ke suku kata
+            addFlowLevel("Suku Kata:", allSyllables, "syllable-item");
+            addArrow("up");
+            
+            // Level 6: Kembali ke kata-kata
+            addFlowLevel("Kata-kata:", sentenceData.words, "word-item");
+            addArrow("up");
+            
+            // Level 7: Kembali ke kalimat utuh
+            addFlowLevel("Kalimat:", [sentenceData.sentence], "sentence-item");
+            
+            // Scroll ke bagian analisis
+            diamondAnalysis.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Fungsi untuk menambahkan level analisis
+        function addFlowLevel(label, items, itemClass) {
+            const level = document.createElement('div');
+            level.className = 'flow-level';
+            
+            const labelElement = document.createElement('div');
+            labelElement.className = 'level-label';
+            labelElement.textContent = label;
+            
+            const contentElement = document.createElement('div');
+            contentElement.className = 'level-content';
+            
+            items.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = `analysis-item ${itemClass}`;
+                itemElement.textContent = item;
+                contentElement.appendChild(itemElement);
+            });
+            
+            level.appendChild(labelElement);
+            level.appendChild(contentElement);
+            analysisFlow.appendChild(level);
+        }
+
+        // Fungsi untuk menambahkan panah
+        function addArrow(direction) {
+            const arrow = document.createElement('div');
+            arrow.className = `arrow-${direction}`;
+            analysisFlow.appendChild(arrow);
+        }
+
+        // Fungsi untuk memulai latihan dengan kalimat yang sedang dianalisis
+        function startPractice() {
+            if (!currentAnalysisData) return;
+            
+            // Reset state
+            selectedOption = null;
+            blankToFill = null;
+            practiceResult.style.display = 'none';
+            
+            // Tampilkan kalimat yang sedang dilatih
+            currentSentenceElement.textContent = `"${currentAnalysisData.sentence}"`;
+            
+            // Tampilkan latihan
+            showPracticeDiamond(currentAnalysisData);
+            
+            // Tampilkan section latihan
+            practiceSection.style.display = 'block';
+            practiceSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Fungsi untuk menampilkan latihan pola ketupat dengan bagian yang kosong
+        function showPracticeDiamond(sentenceData) {
+            practiceFlow.innerHTML = '';
+            
+            // Buat array dari semua elemen dalam pola ketupat
+            const allElements = [];
+            
+            // Level 1: Kalimat utuh
+            allElements.push({
+                level: "Kalimat:",
+                items: [sentenceData.sentence],
+                type: "sentence-item"
+            });
+            
+            // Level 2: Kata-kata
+            allElements.push({
+                level: "Kata-kata:",
+                items: sentenceData.words,
+                type: "word-item"
+            });
+            
+            // Level 3: Suku kata untuk setiap kata
+            const allSyllables = [];
+            sentenceData.words.forEach(word => {
+                allSyllables.push(...sentenceData.syllables[word]);
+            });
+            allElements.push({
+                level: "Suku Kata:",
+                items: allSyllables,
+                type: "syllable-item"
+            });
+            
+            // Level 4: Huruf-huruf untuk setiap suku kata
+            const allLetters = [];
+            sentenceData.words.forEach(word => {
+                sentenceData.syllables[word].forEach(syllable => {
+                    allLetters.push(...splitIntoLetters(syllable));
+                });
+            });
+            allElements.push({
+                level: "Huruf:",
+                items: allLetters,
+                type: "letter-item"
+            });
+            
+            // Level 5: Kembali ke suku kata
+            allElements.push({
+                level: "Suku Kata:",
+                items: allSyllables,
+                type: "syllable-item"
+            });
+            
+            // Level 6: Kembali ke kata-kata
+            allElements.push({
+                level: "Kata-kata:",
+                items: sentenceData.words,
+                type: "word-item"
+            });
+            
+            // Level 7: Kembali ke kalimat utuh
+            allElements.push({
+                level: "Kalimat:",
+                items: [sentenceData.sentence],
+                type: "sentence-item"
+            });
+            
+            // Tampilkan pola ketupat dengan beberapa bagian kosong
+            let levelIndex = 0;
+            allElements.forEach(levelData => {
+                // Tambahkan level
+                const level = document.createElement('div');
+                level.className = 'flow-level';
+                
+                const labelElement = document.createElement('div');
+                labelElement.className = 'level-label';
+                labelElement.textContent = levelData.level;
+                
+                const contentElement = document.createElement('div');
+                contentElement.className = 'level-content';
+                
+                // Untuk setiap item dalam level, buat item atau blank
+                levelData.items.forEach((item, itemIndex) => {
+                    // Pilih secara acak beberapa item untuk dijadikan blank
+                    // Hindari level pertama dan terakhir agar tidak terlalu sulit
+                    const shouldBeBlank = Math.random() < 0.4 && levelIndex > 0 && levelIndex < allElements.length - 1;
+                    
+                    const itemElement = document.createElement('div');
+                    
+                    if (shouldBeBlank) {
+                        itemElement.className = `practice-item practice-blank`;
+                        itemElement.dataset.answer = item;
+                        itemElement.dataset.level = levelIndex;
+                        itemElement.dataset.index = itemIndex;
+                        
+                        itemElement.addEventListener('click', function() {
+                            selectBlank(this, level);
+                        });
+                        
+                        contentElement.appendChild(itemElement);
+                    } else {
+                        // Tampilkan item yang tidak dikosongkan dengan warna yang sesuai
+                        let itemClass = '';
+                        if (levelIndex === 0 || levelIndex === 6) itemClass = 'sentence-item';
+                        else if (levelIndex === 1 || levelIndex === 5) itemClass = 'word-item';
+                        else if (levelIndex === 2 || levelIndex === 4) itemClass = 'syllable-item';
+                        else if (levelIndex === 3) itemClass = 'letter-item';
+                        
+                        itemElement.className = `practice-item ${itemClass}`;
+                        itemElement.textContent = item;
+                        contentElement.appendChild(itemElement);
+                    }
+                });
+                
+                level.appendChild(labelElement);
+                level.appendChild(contentElement);
+                practiceFlow.appendChild(level);
+                
+                // Tambahkan panah dengan container untuk opsi
+                if (levelIndex < allElements.length - 1) {
+                    const arrowDirection = levelIndex < 3 ? "down" : "up";
+                    const arrowWithOptions = document.createElement('div');
+                    arrowWithOptions.className = 'arrow-with-options';
+                    
+                    const arrow = document.createElement('div');
+                    arrow.className = `arrow-${arrowDirection}`;
+                    
+                    // Buat container untuk opsi di bagian panah
+                    const optionsContainer = document.createElement('div');
+                    optionsContainer.className = 'blank-options single-row';
+                    optionsContainer.id = `options-${levelIndex}`;
+                    
+                    arrowWithOptions.appendChild(arrow);
+                    arrowWithOptions.appendChild(optionsContainer);
+                    practiceFlow.appendChild(arrowWithOptions);
+                }
+                
+                levelIndex++;
+            });
+        }
+
+        // Fungsi untuk membuat opsi jawaban untuk blank tertentu
+        function createPracticeOptionsForBlank(blankElement, optionsContainer) {
+            optionsContainer.innerHTML = '';
+            
+            const correctAnswer = blankElement.dataset.answer;
+            const level = parseInt(blankElement.dataset.level);
+            
+            // Tentukan jenis distraktor berdasarkan level
+            let distractorType = '';
+            if (level === 1 || level === 5) {
+                distractorType = 'words'; // Level kata
+            } else if (level === 2 || level === 4) {
+                distractorType = 'syllables'; // Level suku kata
+            } else if (level === 3) {
+                distractorType = 'letters'; // Level huruf
+            }
+            
+            // Kumpulkan semua kemungkinan jawaban dari analisis
+            const allAnswers = [];
+            
+            // Kata-kata
+            if (level === 1 || level === 5) {
+                currentAnalysisData.words.forEach(word => {
+                    allAnswers.push(word);
+                });
+            }
+            // Suku kata
+            else if (level === 2 || level === 4) {
+                Object.values(currentAnalysisData.syllables).forEach(syllables => {
+                    syllables.forEach(syllable => {
+                        allAnswers.push(syllable);
+                    });
+                });
+            }
+            // Huruf
+            else if (level === 3) {
+                Object.values(currentAnalysisData.syllables).forEach(syllables => {
+                    syllables.forEach(syllable => {
+                        splitIntoLetters(syllable).forEach(letter => {
+                            allAnswers.push(letter);
+                        });
+                    });
+                });
+            }
+            
+            // Hapus duplikat
+            const uniqueAnswers = [...new Set(allAnswers)];
+            
+            // Ambil distraktor dari database
+            const distractors = [...distractorDatabase[distractorType]];
+            
+            // Gabungkan jawaban benar dan distraktor
+            const allOptions = [correctAnswer]; // Pastikan jawaban benar ada
+            
+            // Tambahkan beberapa jawaban benar lainnya (jika ada)
+            uniqueAnswers.forEach(answer => {
+                if (answer !== correctAnswer && allOptions.length < 3) {
+                    allOptions.push(answer);
+                }
+            });
+            
+            // Tambahkan distraktor jika masih kurang
+            distractors.forEach(distractor => {
+                if (!allOptions.includes(distractor) && allOptions.length < 6) {
+                    allOptions.push(distractor);
+                }
+            });
+            
+            // Acak urutan opsi
+            shuffleArray(allOptions);
+            
+            // Simpan opsi untuk blank ini
+            currentBlankOptions = allOptions;
+            
+            // Tampilkan opsi dalam satu baris
+            allOptions.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'blank-option';
+                optionElement.textContent = option;
+                
+                // Tambahkan indikator suara
+                const soundIndicator = document.createElement('div');
+                soundIndicator.className = 'sound-indicator';
+                soundIndicator.innerHTML = '🔊';
+                soundIndicator.title = 'Klik untuk mendengar pengucapan';
+                optionElement.appendChild(soundIndicator);
+                
+                // Event listener untuk pengucapan dan memeriksa jawaban
+                let clickCount = 0;
+                optionElement.addEventListener('click', function(e) {
+                    clickCount++;
+                    if (clickCount === 1) {
+                        // Pengucapan pada klik pertama
+                        const speakSuccess = speakText(option);
+
+                        // Efek visual saat diucapkan
+                        if (speakSuccess) {
+                            optionElement.style.transform = 'scale(0.95)';
+                            optionElement.style.backgroundColor = '#e6f7ff';
+                            setTimeout(() => {
+                                optionElement.style.transform = '';
+                                optionElement.style.backgroundColor = '';
+                            }, 300);
+                        }
+                    } else if (clickCount === 2) {
+                        // Periksa jawaban pada klik kedua
+                        checkOption(this, option, correctAnswer, blankElement, optionsContainer);
+                        clickCount = 0;
+                    }
+
+                    // Reset click count setelah 1 detik
+                    setTimeout(() => {
+                        clickCount = 0;
+                    }, 1000);
+                });
+                
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Tampilkan opsi
+            optionsContainer.style.display = 'flex';
+        }
+
+        // Fungsi untuk memilih blank yang akan diisi
+        function selectBlank(blankElement, levelElement) {
+            // Sembunyikan semua opsi lainnya
+            const allOptions = document.querySelectorAll('.blank-options');
+            allOptions.forEach(option => {
+                option.style.display = 'none';
+            });
+            
+            // Reset seleksi sebelumnya
+            const previouslySelected = document.querySelector('.practice-blank.selected');
+            if (previouslySelected) {
+                previouslySelected.classList.remove('selected');
+            }
+            
+            // Tandai blank yang dipilih
+            blankElement.classList.add('selected');
+            blankToFill = blankElement;
+            
+            // Tambahkan efek expand pada level
+            levelElement.classList.add('expanded');
+            
+            // Dapatkan container opsi yang sesuai (di bagian panah setelah level ini)
+            const levelIndex = parseInt(blankElement.dataset.level);
+            const optionsContainer = document.getElementById(`options-${levelIndex}`);
+            
+            if (optionsContainer) {
+                // Buat dan tampilkan opsi untuk blank ini
+                createPracticeOptionsForBlank(blankElement, optionsContainer);
+            }
+        }
+
+        // Fungsi untuk memeriksa jawaban saat opsi dipilih
+        function checkOption(optionElement, selectedValue, correctAnswer, blankElement, optionsContainer) {
+            const isCorrect = selectedValue === correctAnswer;
+            
+            // Mainkan efek suara
+            playSound(isCorrect);
+            
+            // Tampilkan hasil
+            practiceResult.textContent = isCorrect 
+                ? "Jawaban Anda benar! ✓" 
+                : `Jawaban Anda salah. Jawaban yang benar adalah: ${correctAnswer}`;
+            
+            practiceResult.className = `practice-result ${isCorrect ? 'correct' : 'incorrect'}`;
+            practiceResult.style.display = 'block';
+            
+            // Jika jawaban benar, isi blank dengan jawaban yang benar
+            if (isCorrect) {
+                blankElement.textContent = selectedValue;
+                blankElement.classList.remove('practice-blank', 'selected');
+                blankElement.classList.add('correct-answer');
+                
+                // Tentukan kelas berdasarkan level
+                const level = parseInt(blankElement.dataset.level);
+                let itemClass = 'letter-item';
+                
+                if (level === 1 || level === 5) itemClass = 'word-item';
+                else if (level === 2 || level === 4) itemClass = 'syllable-item';
+                else if (level === 0 || level === 6) itemClass = 'sentence-item';
+                
+                blankElement.classList.add('practice-item', itemClass);
+                
+                // Tandai opsi yang benar
+                optionElement.classList.add('correct');
+            } else {
+                // Tandai opsi yang salah
+                optionElement.classList.add('incorrect');
+                
+                // Tandai opsi yang benar
+                const optionElements = optionsContainer.querySelectorAll('.blank-option');
+                optionElements.forEach(option => {
+                    if (option.textContent === correctAnswer) {
+                        option.classList.add('correct');
+                    }
+                });
+            }
+            
+            // Nonaktifkan semua opsi setelah menjawab
+            const optionElements = optionsContainer.querySelectorAll('.blank-option');
+            optionElements.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Hapus efek expand dari level
+            const levelElement = blankElement.closest('.flow-level');
+            if (levelElement) {
+                levelElement.classList.remove('expanded');
+            }
+            
+            // Sembunyikan opsi setelah 2 detik
+            setTimeout(() => {
+                optionsContainer.style.display = 'none';
+            }, 2000);
+        }
+
+        // Fungsi untuk mereset latihan
+        function resetPractice() {
+            startPractice();
+        }
+
+        // Fungsi untuk menutup latihan
+        function closePractice() {
+            practiceSection.style.display = 'none';
+            diamondAnalysis.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Fungsi utilitas untuk mengacak array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Event Listeners
+        analyzeBtn.addEventListener('click', function() {
+            const customSentence = sentenceInput.value.trim();
+            if (customSentence) {
+                currentAnalysisData = analyzeCustomSentence(customSentence);
+                showDiamondAnalysis(currentAnalysisData);
+            }
+        });
+
+        sentenceInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                analyzeBtn.click();
+            }
+        });
+
+        backBtn.addEventListener('click', function() {
+            window.history.back();
+        });
+
+        // Event Listeners untuk latihan
+        togglePracticeBtn.addEventListener('click', startPractice);
+        resetPracticeBtn.addEventListener('click', resetPractice);
+        closePracticeBtn.addEventListener('click', closePractice);
+
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-focus pada input
+            sentenceInput.focus();
+            
+            // Animasi untuk elemen cloud dan buku
+            const clouds = document.querySelectorAll('.cloud');
+            const books = document.querySelectorAll('.floating-books');
+            
+            clouds.forEach(cloud => {
+                cloud.style.animationDelay = Math.random() * 5 + 's';
+            });
+            
+            books.forEach(book => {
+                book.style.animationDelay = Math.random() * 3 + 's';
+            });
+        });
+    </script>
+</body>
+</html>

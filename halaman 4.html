@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Suku Kata - Mari Membaca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #b3e0ff 0%, #e6f7ff 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 120, 215, 0.2);
+            overflow: hidden;
+            padding: 30px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, #87ceeb, #b3e0ff, #87ceeb);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            margin-bottom: 15px;
+        }
+        
+        .logo i {
+            font-size: 3rem;
+            color: #87ceeb;
+        }
+        
+        h1 {
+            color: #2c7fb8;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            color: #5a9bc6;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .menu-card {
+            background: linear-gradient(135deg, #b3e0ff 0%, #e6f7ff 100%);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(135, 206, 235, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #5a9bc6, #2c7fb8);
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px rgba(135, 206, 235, 0.4);
+        }
+        
+        .menu-card:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
+        }
+        
+        .menu-card.click-effect {
+            animation: clickAnimation 0.3s ease;
+        }
+        
+        @keyframes clickAnimation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.95);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .menu-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #2c7fb8;
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-card:active .menu-icon {
+            transform: scale(1.1);
+        }
+        
+        .menu-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2c7fb8;
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-card:active .menu-title {
+            transform: scale(1.05);
+        }
+        
+        .menu-description {
+            font-size: 1.1rem;
+            color: #5a9bc6;
+            line-height: 1.5;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #5a9bc6;
+            border: 2px solid #b3e0ff;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .back-btn:hover {
+            background: #e6f7ff;
+            color: #2c7fb8;
+            transform: translateY(-3px);
+        }
+        
+        .back-btn:active {
+            transform: translateY(-1px) scale(0.98);
+            background: #d6f0ff;
+        }
+        
+        .back-btn i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-btn:active i {
+            transform: translateX(-3px);
+        }
+        
+        .cloud {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            opacity: 0.7;
+            z-index: -1;
+        }
+        
+        .cloud-1 {
+            width: 120px;
+            height: 40px;
+            top: 10%;
+            left: 5%;
+            animation: float 20s infinite linear;
+        }
+        
+        .cloud-2 {
+            width: 180px;
+            height: 60px;
+            bottom: 15%;
+            right: 5%;
+            animation: float 25s infinite linear reverse;
+        }
+        
+        .cloud-3 {
+            width: 100px;
+            height: 35px;
+            top: 40%;
+            right: 10%;
+            animation: float 18s infinite linear;
+        }
+        
+        .floating-books {
+            position: fixed;
+            font-size: 1.8rem;
+            color: #87ceeb;
+            opacity: 0.7;
+            z-index: -1;
+        }
+        
+        .book-1 {
+            top: 15%;
+            right: 8%;
+            animation: float 15s infinite linear;
+        }
+        
+        .book-2 {
+            bottom: 20%;
+            left: 8%;
+            animation: float 18s infinite linear reverse;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .menu-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .menu-card {
+                padding: 30px 20px;
+            }
+            
+            .menu-icon {
+                font-size: 3.5rem;
+            }
+            
+            .menu-title {
+                font-size: 1.6rem;
+            }
+            
+            .floating-books {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    
+    <div class="floating-books book-1">
+        <i class="fas fa-book-open"></i>
+    </div>
+    <div class="floating-books book-2">
+        <i class="fas fa-book"></i>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-text-height"></i>
+            </div>
+            
+            <h1>Belajar Suku Kata</h1>
+            <p class="subtitle">Pilih jenis suku kata yang ingin dipelajari</p>
+        </div>
+        
+        <div class="menu-container">
+            <a href="halaman 5.html" class="menu-card" id="open-syllable">
+                <div class="menu-icon">
+                    <i class="fas fa-door-open"></i>
+                </div>
+                <div class="menu-title">Suku Kata Terbuka</div>
+                <div class="menu-description">
+                    Suku kata yang diakhiri dengan huruf vokal
+                </div>
+            </a>
+            
+            <a href="halaman 6.html" class="menu-card" id="closed-syllable">
+                <div class="menu-icon">
+                    <i class="fas fa-door-closed"></i>
+                </div>
+                <div class="menu-title">Suku Kata Tertutup</div>
+                <div class="menu-description">
+                    Suku kata yang diakhiri dengan huruf konsonan
+                </div>
+            </a>
+        </div>
+        
+        <div style="text-align: center;">
+            <button class="back-btn" id="back-btn">
+                <i class="fas fa-arrow-left"></i> Kembali ke Menu
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Elemen DOM
+        const backBtn = document.getElementById('back-btn');
+        const openSyllableBtn = document.getElementById('open-syllable');
+        const closedSyllableBtn = document.getElementById('closed-syllable');
+
+        // Fungsi untuk efek klik
+        function addClickEffect(element) {
+            element.classList.add('click-effect');
+            setTimeout(() => {
+                element.classList.remove('click-effect');
+            }, 300);
+        }
+
+        // Event Listeners untuk efek klik
+        openSyllableBtn.addEventListener('click', function(e) {
+            addClickEffect(this);
+            // Bisa ditambahkan delay sebelum redirect jika perlu
+            // setTimeout(() => {
+            //     window.location.href = this.href;
+            // }, 300);
+        });
+
+        closedSyllableBtn.addEventListener('click', function(e) {
+            addClickEffect(this);
+            // Bisa ditambahkan delay sebelum redirect jika perlu
+            // setTimeout(() => {
+            //     window.location.href = this.href;
+            // }, 300);
+        });
+
+        backBtn.addEventListener('click', function() {
+            // Efek klik pada tombol kembali
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+                window.history.back();
+            }, 150);
+        });
+
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animasi untuk elemen cloud dan buku
+            const clouds = document.querySelectorAll('.cloud');
+            const books = document.querySelectorAll('.floating-books');
+            
+            clouds.forEach(cloud => {
+                cloud.style.animationDelay = Math.random() * 5 + 's';
+            });
+            
+            books.forEach(book => {
+                book.style.animationDelay = Math.random() * 3 + 's';
+            });
+            
+            // Animasi saat halaman dimuat
+            const menuCards = document.querySelectorAll('.menu-card');
+            menuCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300 + (index * 200));
+            });
+        });
+    </script>
+</body>
+</html>
