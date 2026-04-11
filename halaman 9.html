@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Cara Penggunaan - SAGA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #b3e0ff 0%, #e6f7ff 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 120, 215, 0.2);
+            margin: 20px auto;
+            padding: 40px 35px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(to right, #87ceeb, #2c7fb8, #87ceeb);
+            border-radius: 25px 25px 0 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            margin-bottom: 15px;
+        }
+
+        .logo i {
+            font-size: 3.5rem;
+            color: #2c7fb8;
+            background: linear-gradient(135deg, #2c7fb8, #87ceeb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #2c7fb8;
+            margin-bottom: 10px;
+        }
+
+        .subhead {
+            font-size: 1.2rem;
+            color: #5a9bc6;
+            border-bottom: 2px dashed #b3e0ff;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        .step-section {
+            margin-bottom: 40px;
+            background: #f9feff;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .step-section:hover {
+            transform: translateY(-3px);
+        }
+
+        .step-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #2c7fb8;
+            border-left: 5px solid #87ceeb;
+            padding-left: 20px;
+        }
+
+        .step-title i {
+            font-size: 2rem;
+            color: #87ceeb;
+        }
+
+        .step-number {
+            background: #2c7fb8;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .step-content {
+            padding-left: 30px;
+            color: #2c3e50;
+        }
+
+        .step-content p {
+            margin-bottom: 12px;
+        }
+
+        .step-content ul, .step-content ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .step-content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: #e6f7ff;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #1a6ca8;
+        }
+
+        .menu-badge {
+            display: inline-flex;
+            background: linear-gradient(135deg, #b3e0ff, #e6f7ff);
+            padding: 6px 15px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #2c7fb8;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .example-box {
+            background: #eef9ff;
+            border-left: 5px solid #2c7fb8;
+            padding: 15px 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        .sas-steps {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #5a9bc6;
+            border: 2px solid #b3e0ff;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .btn-back:hover {
+            background: #e6f7ff;
+            color: #2c7fb8;
+            transform: translateY(-3px);
+        }
+
+        .floating-books {
+            position: fixed;
+            font-size: 2rem;
+            color: #87ceeb;
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .book-left {
+            bottom: 10%;
+            left: 2%;
+            animation: float 18s infinite ease-in-out;
+        }
+
+        .book-right {
+            top: 15%;
+            right: 3%;
+            animation: float 22s infinite reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 18px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .step-title {
+                font-size: 1.3rem;
+                flex-wrap: wrap;
+            }
+            .step-content {
+                padding-left: 15px;
+            }
+            .floating-books {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="floating-books book-left">
+    <i class="fas fa-book-open"></i>
+</div>
+<div class="floating-books book-right">
+    <i class="fas fa-book"></i>
+</div>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <i class="fas fa-question-circle"></i>
+        </div>
+        <h1>Cara Penggunaan</h1>
+        <div class="subhead">Panduan lengkap menggunakan aplikasi SAGA</div>
+    </div>
+
+    <!-- 1. Mengakses dan Masuk ke Aplikasi -->
+    <div class="step-section">
+        <div class="step-title">
+            <i class="fas fa-rocket"></i>
+            <span>1. Mengakses dan Masuk ke Aplikasi</span>
+        </div>
+        <div class="step-content">
+            <p>Pengguna dapat membuka laman <strong class="highlight">SAGA</strong> melalui tautan yang diberikan atau memindai <strong>QR code</strong> yang tersedia di materi pembelajaran.</p>
+            <ul>
+                <li>Setelah halaman terbuka, Anda akan melihat tampilan selamat datang dengan logo buku dan tombol <span class="highlight">“Mulai”</span>.</li>
+                <li>Klik tombol <strong>“Mulai”</strong> untuk masuk ke halaman utama menu pembelajaran.</li>
+            </ul>
+            <div class="example-box">
+                <i class="fas fa-info-circle"></i> Tip: Pastikan koneksi internet stabil agar semua fitur berjalan lancar.
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Memilih Menu Pembelajaran -->
+    <div class="step-section">
+        <div class="step-title">
+            <i class="fas fa-th-large"></i>
+            <span>2. Memilih Menu Pembelajaran</span>
+        </div>
+        <div class="step-content">
+            <p>Di halaman utama, tersedia <strong>enam menu</strong> utama yang dapat dipilih sesuai kebutuhan belajar:</p>
+            <div>
+                <span class="menu-badge"><i class="fas fa-question-circle"></i> Cara Penggunaan</span>
+                <span class="menu-badge"><i class="fas fa-chalkboard-user"></i> CP dan TP</span>
+                <span class="menu-badge"><i class="fas fa-font"></i> Huruf</span>
+                <span class="menu-badge"><i class="fas fa-text-height"></i> Suku Kata</span>
+                <span class="menu-badge"><i class="fas fa-spell-check"></i> Kata</span>
+                <span class="menu-badge"><i class="fas fa-align-left"></i> Kalimat</span>
+            </div>
+            <ul style="margin-top: 15px;">
+                <li><strong>Cara Penggunaan</strong> – panduan singkat fitur aplikasi (halaman ini).</li>
+                <li><strong>CP dan TP</strong> – berisi Capaian Pembelajaran dan Tujuan Pembelajaran yang ingin dicapai.</li>
+                <li><strong>Huruf</strong> – pengenalan alfabet (A–Z) disertai pelafalan suara.</li>
+                <li><strong>Suku Kata</strong> – belajar menggabungkan huruf menjadi suku kata (contoh: <em>bu, ku, sa</em>).</li>
+                <li><strong>Kata</strong> – membentuk kata dari beberapa suku kata (contoh: <em>buku, sapi, meja</em>).</li>
+                <li><strong>Kalimat</strong> – memahami struktur kalimat dengan <strong>metode SAS</strong> (Structural Analytic Synthetic).</li>
+            </ul>
+            <p>Cukup klik pada menu yang diinginkan, maka Anda akan langsung masuk ke halaman pembelajaran interaktif.</p>
+        </div>
+    </div>
+
+    <!-- 3. Menggunakan Metode SAS pada Menu Kalimat (detail) -->
+    <div class="step-section">
+        <div class="step-title">
+            <i class="fas fa-brain"></i>
+            <span>3. Menggunakan Metode SAS pada Menu Kalimat</span>
+        </div>
+        <div class="step-content">
+            <p>Menu <strong>Kalimat</strong> adalah fitur utama untuk menganalisis kalimat menggunakan metode <strong>SAS (Structural Analytic Synthetic)</strong>. Ikuti langkah-langkah berikut:</p>
+
+            <div class="sas-steps">
+                <h3 style="color:#2c7fb8; margin-bottom:10px;"><i class="fas fa-keyboard"></i> a. Memasukkan Kalimat</h3>
+                <p>Pada menu Kalimat, pengguna mengetikkan kalimat sederhana ke dalam kolom yang tersedia.</p>
+                <div class="example-box">
+                    <i class="fas fa-pen-fancy"></i> Contoh: <strong>“Ibu sedang memasak”</strong>
+                </div>
+            </div>
+
+            <div class="sas-steps">
+                <h3 style="color:#2c7fb8; margin-bottom:10px;"><i class="fas fa-chart-line"></i> b. Melakukan Analisis Otomatis</h3>
+                <p>Tekan tombol <span class="highlight">“Analisis”</span>. Sistem akan memecah kalimat menjadi:</p>
+                <ul>
+                    <li><strong>Kata</strong> → <em>Ibu, sedang, memasak</em></li>
+                    <li><strong>Suku kata</strong> → <em>I-bu, se-dang, me-ma-sak</em></li>
+                    <li><strong>Huruf</strong> → <em>I, b, u, s, e, d, a, n, g, m, e, m, a, s, a, k</em></li>
+                </ul>
+                <p>Hasil analisis akan ditampilkan dalam bentuk kartu interaktif yang memudahkan pemahaman struktur kalimat.</p>
+            </div>
+
+            <div class="sas-steps">
+                <h3 style="color:#2c7fb8; margin-bottom:10px;"><i class="fas fa-puzzle-piece"></i> c. Latihan Interaktif</h3>
+                <p>Gulir ke bawah hingga muncul bagian <strong>“Latihan”</strong>. Kemudian:</p>
+                <ul>
+                    <li>Tekan tombol <span class="highlight">“Coba latihan dengan kalimat ini”</span>.</li>
+                    <li>Akan muncul soal dengan kotak kosong yang harus diisi pengguna (misalnya memilih suku kata atau huruf yang tepat sesuai dengan kalimat yang dianalisis).</li>
+                    <li>Klik atau ketik jawaban pada kotak yang tersedia.</li>
+                </ul>
+            </div>
+
+            <div class="sas-steps">
+                <h3 style="color:#2c7fb8; margin-bottom:10px;"><i class="fas fa-redo-alt"></i> d. Umpan Balik dan Pengulangan</h3>
+                <ul>
+                    <li>Jika jawaban <strong>benar</strong> → kotak berwarna <span style="background:#c8e6c9; padding:2px 8px; border-radius:20px;">hijau</span> dan muncul notifikasi selamat.</li>
+                    <li>Jika jawaban <strong>salah</strong> → kotak berwarna <span style="background:#ffcdd2; padding:2px 8px; border-radius:20px;">merah</span> dan diberikan petunjuk.</li>
+                    <li>Tekan tombol <span class="highlight">“Ulang Latihan”</span> kapan saja untuk mengulang soal yang sama.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tombol kembali ke menu utama -->
+    <div style="text-align: center; margin-top: 30px;">
+        <button class="btn-back" id="backToMenu">
+            <i class="fas fa-arrow-left"></i> Kembali ke Menu
+        </button>
+    </div>
+</div>
+
+<script>
+    // Tombol kembali ke halaman menu sebelumnya (menu belajar)
+    document.getElementById('backToMenu').addEventListener('click', function() {
+        // Efek transisi ringan
+        this.style.transform = 'scale(0.96)';
+        setTimeout(() => {
+            // Asumsikan halaman menu belajar bernama 'halaman 2.html' (seperti dari kode sebelumnya)
+            // Atau bisa menggunakan history.back() agar lebih fleksibel
+            window.location.href = 'halaman 2.html';
+        }, 150);
+    });
+
+    // Efek animasi sederhana saat load
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('.step-section');
+        sections.forEach((section, idx) => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                section.style.transition = 'all 0.5s ease';
+                section.style.opacity = '1';
+                section.style.transform = 'translateY(0)';
+            }, idx * 150);
+        });
+    });
+</script>
+</body>
+</html>

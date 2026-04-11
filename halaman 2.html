@@ -2,8 +2,8 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Belajar - Mari Membaca</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Menu Belajar - SAGA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -23,18 +23,22 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0, 120, 215, 0.2);
             overflow: hidden;
-            padding: 40px;
+            padding: 40px 30px;
             text-align: center;
             position: relative;
+            z-index: 1;
+            margin: 20px 0;
         }
         
         .container::before {
@@ -49,42 +53,56 @@
         
         .header {
             margin-bottom: 40px;
+            padding: 0 10px;
         }
         
         .logo {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
         }
         
         .logo i {
-            font-size: 3.5rem;
+            font-size: 4rem;
             color: #87ceeb;
+            background: linear-gradient(135deg, #2c7fb8, #87ceeb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 3px 5px rgba(135, 206, 235, 0.3));
         }
         
         h1 {
             color: #2c7fb8;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
             font-weight: 700;
+            line-height: 1.2;
         }
         
         .subtitle {
             color: #5a9bc6;
-            font-size: 1.2rem;
-            font-weight: 300;
+            font-size: 1.3rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
             margin: 40px 0;
+            padding: 0 10px;
         }
         
         .menu-btn {
             background: linear-gradient(135deg, #b3e0ff 0%, #e6f7ff 100%);
             border: none;
             border-radius: 15px;
-            padding: 30px 20px;
+            padding: 35px 20px;
             color: #2c7fb8;
             text-decoration: none;
             box-shadow: 0 8px 20px rgba(135, 206, 235, 0.3);
@@ -96,6 +114,8 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            height: 100%;
+            min-height: 220px;
         }
         
         .menu-btn::before {
@@ -134,10 +154,14 @@
         }
         
         .menu-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
             color: #2c7fb8;
             transition: transform 0.3s ease;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .menu-btn:active .menu-icon {
@@ -145,11 +169,12 @@
         }
         
         .menu-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             color: #2c7fb8;
             transition: transform 0.3s ease;
+            line-height: 1.3;
         }
         
         .menu-btn:active .menu-title {
@@ -157,9 +182,11 @@
         }
         
         .menu-desc {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #5a9bc6;
-            line-height: 1.4;
+            line-height: 1.5;
+            max-width: 90%;
+            margin: 0 auto;
         }
         
         .back-btn {
@@ -168,13 +195,13 @@
             background: transparent;
             color: #5a9bc6;
             border: 2px solid #b3e0ff;
-            padding: 10px 25px;
+            padding: 12px 30px;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
-            margin-top: 20px;
+            margin-top: 30px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -184,6 +211,7 @@
             background: #e6f7ff;
             color: #2c7fb8;
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
         }
         
         .back-btn:active {
@@ -192,7 +220,7 @@
         }
         
         .back-btn i {
-            margin-right: 8px;
+            margin-right: 10px;
             transition: transform 0.3s ease;
         }
         
@@ -206,28 +234,28 @@
             border-radius: 50%;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
             opacity: 0.7;
-            z-index: -1;
+            z-index: 0;
         }
         
         .cloud-1 {
-            width: 120px;
-            height: 40px;
+            width: 150px;
+            height: 50px;
             top: 10%;
             left: 5%;
             animation: float 20s infinite linear;
         }
         
         .cloud-2 {
-            width: 180px;
-            height: 60px;
+            width: 200px;
+            height: 70px;
             bottom: 15%;
             right: 5%;
             animation: float 25s infinite linear reverse;
         }
         
         .cloud-3 {
-            width: 100px;
-            height: 35px;
+            width: 120px;
+            height: 40px;
             top: 40%;
             right: 10%;
             animation: float 18s infinite linear;
@@ -235,10 +263,10 @@
         
         .floating-books {
             position: absolute;
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #87ceeb;
             opacity: 0.7;
-            z-index: -1;
+            z-index: 0;
         }
         
         .book-1 {
@@ -265,102 +293,312 @@
             }
         }
         
-        @media (min-width: 769px) and (max-width: 1024px) {
+        /* Tablet Landscape */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
             .container {
-                padding: 35px;
+                padding: 30px 20px;
+                margin: 10px 0;
             }
-
+            
             h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
-
+            
             .menu-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 22px;
+                gap: 25px;
+                padding: 0 5px;
+            }
+            
+            .menu-btn {
+                padding: 30px 15px;
+                min-height: 200px;
+            }
+            
+            .menu-icon {
+                font-size: 3rem;
+                margin-bottom: 15px;
+            }
+            
+            .menu-title {
+                font-size: 1.4rem;
+            }
+            
+            .menu-desc {
+                font-size: 0.95rem;
             }
         }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
+        
+        /* Tablet Portrait */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+            .container {
+                padding: 35px 25px;
             }
-
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            
+            .menu-btn {
+                padding: 30px 15px;
+            }
+        }
+        
+        /* Mobile Devices */
+        @media (max-width: 767px) {
+            body {
+                padding: 15px;
+                justify-content: flex-start;
+                min-height: auto;
+            }
+            
             .container {
                 padding: 25px 15px;
+                margin: 10px 0;
+                border-radius: 15px;
+                width: 100%;
+                max-width: 100%;
             }
-
+            
+            .header {
+                margin-bottom: 30px;
+                padding: 0;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+                height: 60px;
+            }
+            
             .logo i {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
-
+            
             h1 {
                 font-size: 1.8rem;
+                margin-bottom: 10px;
+                padding: 0 5px;
             }
-
+            
             .subtitle {
-                font-size: 1rem;
+                font-size: 1.1rem;
+                padding: 0 5px;
             }
-
+            
             .menu-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 20px;
+                margin: 30px 0;
+                padding: 0;
             }
-
+            
             .menu-btn {
-                padding: 20px 15px;
+                padding: 25px 15px;
+                min-height: 180px;
+                border-radius: 12px;
             }
-
+            
             .menu-icon {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+                margin-bottom: 15px;
+                height: 60px;
+            }
+            
+            .menu-title {
+                font-size: 1.3rem;
                 margin-bottom: 10px;
             }
-
-            .menu-title {
-                font-size: 1.2rem;
-                margin-bottom: 5px;
-            }
-
+            
             .menu-desc {
-                font-size: 0.8rem;
+                font-size: 0.95rem;
+                max-width: 95%;
             }
-
+            
             .back-btn {
-                padding: 8px 20px;
-                font-size: 0.9rem;
+                padding: 10px 25px;
+                font-size: 1rem;
+                margin-top: 25px;
             }
-
+            
+            .cloud-1, .cloud-2, .cloud-3 {
+                display: none;
+            }
+            
             .floating-books {
                 display: none;
             }
         }
-
+        
+        /* Small Mobile Devices */
         @media (max-width: 480px) {
             body {
-                padding: 5px;
+                padding: 10px;
             }
-
+            
             .container {
-                padding: 20px 10px;
+                padding: 20px 12px;
+                border-radius: 12px;
             }
-
+            
+            .logo i {
+                font-size: 2.5rem;
+            }
+            
             h1 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
-
-            .menu-btn {
-                padding: 15px 10px;
-            }
-
-            .menu-icon {
-                font-size: 2rem;
-            }
-
-            .menu-title {
+            
+            .subtitle {
                 font-size: 1rem;
             }
-
+            
+            .menu-grid {
+                gap: 15px;
+                margin: 25px 0;
+            }
+            
+            .menu-btn {
+                padding: 20px 12px;
+                min-height: 160px;
+            }
+            
+            .menu-icon {
+                font-size: 2.5rem;
+                margin-bottom: 12px;
+                height: 50px;
+            }
+            
+            .menu-title {
+                font-size: 1.2rem;
+            }
+            
             .menu-desc {
-                font-size: 0.75rem;
+                font-size: 0.9rem;
+            }
+            
+            .back-btn {
+                padding: 8px 20px;
+                font-size: 0.95rem;
+                margin-top: 20px;
+            }
+        }
+        
+        /* Very Small Mobile Devices */
+        @media (max-width: 360px) {
+            .container {
+                padding: 18px 10px;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .menu-btn {
+                padding: 18px 10px;
+                min-height: 150px;
+            }
+            
+            .menu-icon {
+                font-size: 2.2rem;
+            }
+            
+            .menu-title {
+                font-size: 1.1rem;
+            }
+            
+            .menu-desc {
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* Large Desktop Screens */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1300px;
+                padding: 50px 40px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 35px;
+            }
+            
+            .menu-btn {
+                padding: 40px 25px;
+                min-height: 250px;
+            }
+            
+            .menu-icon {
+                font-size: 4rem;
+                margin-bottom: 25px;
+            }
+            
+            .menu-title {
+                font-size: 1.6rem;
+            }
+            
+            .menu-desc {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Height adjustments for landscape mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+                justify-content: flex-start;
+            }
+            
+            .container {
+                padding: 20px 15px;
+                margin: 5px 0;
+            }
+            
+            .header {
+                margin-bottom: 20px;
+            }
+            
+            .logo {
+                margin-bottom: 10px;
+                height: 50px;
+            }
+            
+            .logo i {
+                font-size: 2.5rem;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 8px;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                margin: 20px 0;
+            }
+            
+            .menu-btn {
+                padding: 20px 10px;
+                min-height: 160px;
+            }
+            
+            .menu-icon {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
             }
         }
     </style>
@@ -388,6 +626,24 @@
         </div>
         
         <div class="menu-grid">
+            <!-- Menu Cara Penggunaan (urutan pertama) -->
+            <button class="menu-btn" id="cara-penggunaan-btn">
+                <div class="menu-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="menu-title">Cara Penggunaan</div>
+                <div class="menu-desc">Panduan lengkap menggunakan aplikasi SAGA</div>
+            </button>
+            
+            <!-- Menu CP dan TP (Capaian Pembelajaran & Tujuan Pembelajaran) dalam satu button -->
+            <button class="menu-btn" id="cp-tp-btn">
+                <div class="menu-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <div class="menu-title">CP & TP</div>
+                <div class="menu-desc">Capaian Pembelajaran dan Tujuan Pembelajaran</div>
+            </button>
+            
             <button class="menu-btn" id="huruf-btn">
                 <div class="menu-icon">
                     <i class="fas fa-font"></i>
@@ -438,7 +694,17 @@
             }, 300);
         }
 
-        // Fungsi untuk tombol menu dengan redirect
+        // Tombol Cara Penggunaan
+        document.getElementById('cara-penggunaan-btn').addEventListener('click', function() {
+            addClickEffectAndRedirect(this, 'halaman 9.html');
+        });
+        
+        // Tombol CP & TP (Capaian Pembelajaran dan Tujuan Pembelajaran)
+        document.getElementById('cp-tp-btn').addEventListener('click', function() {
+            addClickEffectAndRedirect(this, 'halaman 10.html');
+        });
+        
+        // Tombol menu lainnya
         document.getElementById('huruf-btn').addEventListener('click', function() {
             addClickEffectAndRedirect(this, 'halaman 3.html');
         });
@@ -477,7 +743,7 @@
                 book.style.animationDelay = Math.random() * 3 + 's';
             });
             
-            // Animasi saat halaman dimuat
+            // Animasi saat halaman dimuat untuk semua menu (urutan baru)
             const menuButtons = document.querySelectorAll('.menu-btn');
             menuButtons.forEach((button, index) => {
                 button.style.opacity = '0';

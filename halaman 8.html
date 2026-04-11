@@ -24,7 +24,7 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
@@ -131,12 +131,23 @@
             margin-top: 10px;
         }
         
+        /* PERBAIKAN UTAMA: Container analisis metode SAS di tengah */
+        .diamond-analysis-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 30px;
+        }
+        
         .diamond-analysis {
             background: #f8f9fa;
             border-radius: 15px;
             padding: 30px;
-            margin-top: 30px;
             border: 2px solid #e6f7ff;
+            max-width: 1000px;
+            width: 100%;
+            display: none;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         }
         
         .diamond-analysis h2 {
@@ -146,38 +157,43 @@
             text-align: center;
         }
         
+        /* PERBAIKAN: Analisis flow yang lebih terpusat dan rapi */
         .analysis-flow {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            max-width: 800px;
+            gap: 5px;
+            max-width: 900px;
             margin: 0 auto;
+            width: 100%;
         }
         
         .flow-level {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            gap: 15px;
             width: 100%;
-            padding: 10px 0;
+            padding: 8px 0;
+            min-height: 60px;
         }
         
         .level-label {
-            width: 120px;
-            text-align: right;
             font-weight: 600;
             color: #5a9bc6;
             font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-align: center;
+            width: 100%;
         }
         
         .level-content {
             display: flex;
-            gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
-            flex: 1;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            min-height: 50px;
         }
         
         .analysis-item {
@@ -189,7 +205,10 @@
             transition: all 0.3s ease;
             border: 2px solid transparent;
             text-align: center;
-            min-width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: fit-content;
         }
         
         .sentence-item {
@@ -198,6 +217,7 @@
             font-size: 1.2rem;
             padding: 12px 25px;
             border: 2px solid #ff5252;
+            min-width: 200px;
         }
         
         .word-item {
@@ -206,6 +226,7 @@
             font-size: 1rem;
             padding: 10px 15px;
             border: 2px solid #26a69a;
+            min-width: 80px;
         }
         
         .syllable-item {
@@ -214,6 +235,7 @@
             font-size: 0.9rem;
             padding: 8px 12px;
             border: 2px solid #29b6f6;
+            min-width: 60px;
         }
         
         .letter-item {
@@ -223,9 +245,21 @@
             padding: 6px 10px;
             border: 2px solid #66bb6a;
             min-width: 35px;
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .arrow-down {
+        /* PERBAIKAN: Panah yang lebih terpusat */
+        .arrow-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 5px 0;
+        }
+        
+        .arrow-down, .arrow-up {
             width: 2px;
             height: 20px;
             background: #5a9bc6;
@@ -243,14 +277,6 @@
             border-right: 2px solid #5a9bc6;
             border-bottom: 2px solid #5a9bc6;
             transform: rotate(45deg);
-        }
-        
-        .arrow-up {
-            width: 2px;
-            height: 20px;
-            background: #5a9bc6;
-            margin: 5px 0;
-            position: relative;
         }
         
         .arrow-up::after {
@@ -760,8 +786,13 @@
                 font-size: 1.2rem;
             }
 
+            .diamond-analysis-container {
+                margin-top: 30px;
+            }
+
             .diamond-analysis {
                 padding: 40px;
+                max-width: 1000px;
             }
 
             .diamond-analysis h2 {
@@ -772,40 +803,59 @@
                 max-width: 900px;
             }
 
+            .flow-level {
+                padding: 10px 0;
+                min-height: 70px;
+            }
+
             .level-label {
-                width: 140px;
                 font-size: 1rem;
+                margin-bottom: 12px;
+            }
+
+            .level-content {
+                gap: 10px;
+                min-height: 60px;
             }
 
             .analysis-item {
                 padding: 12px 18px;
                 font-size: 1.1rem;
-                min-width: 60px;
             }
 
             .sentence-item {
                 font-size: 1.4rem;
                 padding: 14px 30px;
+                min-width: 250px;
             }
 
             .word-item {
                 font-size: 1.1rem;
                 padding: 12px 18px;
+                min-width: 90px;
             }
 
             .syllable-item {
                 font-size: 1rem;
                 padding: 10px 14px;
+                min-width: 70px;
             }
 
             .letter-item {
                 font-size: 0.9rem;
                 padding: 8px 12px;
                 min-width: 40px;
+                min-height: 40px;
+            }
+
+            .arrow-down, .arrow-up {
+                height: 25px;
             }
 
             .practice-section {
                 padding: 30px;
+                max-width: 1000px;
+                margin: 30px auto 0;
             }
 
             .practice-section h2 {
@@ -869,8 +919,13 @@
                 justify-content: center;
             }
 
+            .diamond-analysis-container {
+                margin-top: 25px;
+            }
+
             .diamond-analysis {
                 padding: 25px;
+                max-width: 95%;
             }
 
             .diamond-analysis h2 {
@@ -879,80 +934,65 @@
 
             .analysis-flow {
                 max-width: 100%;
+                gap: 3px;
             }
 
             .flow-level {
-                flex-direction: column;
-                gap: 8px;
                 padding: 8px 0;
+                min-height: auto;
             }
 
             .level-label {
-                width: 100%;
-                text-align: center;
                 font-size: 0.95rem;
+                margin-bottom: 8px;
             }
 
             .level-content {
+                width: 100%;
+                padding: 0 5px;
+                min-height: auto;
                 justify-content: center;
-                gap: 8px;
             }
 
             .analysis-item {
                 padding: 8px 12px;
                 font-size: 0.85rem;
-                min-width: 45px;
             }
 
             .sentence-item {
                 font-size: 1rem;
                 padding: 10px 20px;
+                min-width: 180px;
             }
 
             .word-item {
                 font-size: 0.95rem;
                 padding: 9px 14px;
+                min-width: 70px;
             }
 
             .syllable-item {
                 font-size: 0.9rem;
                 padding: 8px 12px;
+                min-width: 55px;
             }
 
             .letter-item {
                 font-size: 0.8rem;
                 padding: 6px 10px;
                 min-width: 35px;
+                min-height: 35px;
             }
 
-            .arrow-down,
-            .arrow-up {
+            .arrow-down, .arrow-up {
                 height: 15px;
-            }
-
-            .analysis-explanation {
-                padding: 18px;
-            }
-
-            .analysis-explanation h3 {
-                font-size: 1.3rem;
-            }
-
-            .explanation-steps {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .explanation-step {
-                padding: 12px;
-            }
-
-            .step-text {
-                font-size: 0.85rem;
+                margin: 3px 0;
             }
 
             .practice-section {
                 padding: 20px;
+                max-width: 95%;
+                margin: 25px auto 0;
             }
 
             .practice-section h2 {
@@ -1100,9 +1140,13 @@
                 font-size: 0.85rem;
             }
 
+            .diamond-analysis-container {
+                margin-top: 20px;
+            }
+
             .diamond-analysis {
                 padding: 20px;
-                margin-top: 20px;
+                max-width: 95%;
             }
 
             .diamond-analysis h2 {
@@ -1117,33 +1161,42 @@
 
             .level-label {
                 font-size: 0.9rem;
+                margin-bottom: 6px;
             }
 
             .analysis-item {
                 padding: 6px 10px;
                 font-size: 0.8rem;
-                min-width: 40px;
             }
 
             .sentence-item {
                 font-size: 0.9rem;
                 padding: 8px 16px;
+                min-width: 150px;
             }
 
             .word-item {
                 font-size: 0.85rem;
                 padding: 7px 12px;
+                min-width: 60px;
             }
 
             .syllable-item {
                 font-size: 0.8rem;
                 padding: 6px 10px;
+                min-width: 50px;
             }
 
             .letter-item {
                 font-size: 0.75rem;
                 padding: 5px 8px;
                 min-width: 30px;
+                min-height: 30px;
+            }
+
+            .arrow-down, .arrow-up {
+                height: 12px;
+                margin: 2px 0;
             }
 
             .analysis-explanation {
@@ -1173,6 +1226,7 @@
             .practice-section {
                 padding: 15px;
                 margin-top: 20px;
+                max-width: 95%;
             }
 
             .practice-section h2 {
@@ -1293,46 +1347,49 @@
             </div>
         </div>
         
-        <div class="diamond-analysis" id="diamond-analysis" style="display: none;">
-            <h2>Analisis metode SAS</h2>
-            <div class="analysis-flow" id="analysis-flow">
-                <!-- Analisis ketupat akan di-generate oleh JavaScript -->
-            </div>
-            
-            <div class="analysis-explanation">
-                <h3><i class="fas fa-lightbulb"></i> Proses Analisis</h3>
-                <div class="explanation-steps">
-                    <div class="explanation-step">
-                        <div class="step-number">1</div>
-                        <div class="step-text">Kalimat utuh dipisah menjadi kata-kata</div>
-                    </div>
-                    <div class="explanation-step">
-                        <div class="step-number">2</div>
-                        <div class="step-text">Setiap kata dipecah menjadi suku kata</div>
-                    </div>
-                    <div class="explanation-step">
-                        <div class="step-number">3</div>
-                        <div class="step-text">Suku kata diurai menjadi huruf-huruf</div>
-                    </div>
-                    <div class="explanation-step">
-                        <div class="step-number">4</div>
-                        <div class="step-text">Huruf digabung kembali menjadi suku kata</div>
-                    </div>
-                    <div class="explanation-step">
-                        <div class="step-number">5</div>
-                        <div class="step-text">Suku kata disusun menjadi kata</div>
-                    </div>
-                    <div class="explanation-step">
-                        <div class="step-number">6</div>
-                        <div class="step-text">Kata digabung menjadi kalimat utuh</div>
+        <!-- PERBAIKAN UTAMA: Container analisis metode SAS di tengah -->
+        <div class="diamond-analysis-container">
+            <div class="diamond-analysis" id="diamond-analysis" style="display: none;">
+                <h2>Analisis metode SAS</h2>
+                <div class="analysis-flow" id="analysis-flow">
+                    <!-- Analisis ketupat akan di-generate oleh JavaScript -->
+                </div>
+                
+                <div class="analysis-explanation">
+                    <h3><i class="fas fa-lightbulb"></i> Proses Analisis</h3>
+                    <div class="explanation-steps">
+                        <div class="explanation-step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Kalimat utuh dipisah menjadi kata-kata</div>
+                        </div>
+                        <div class="explanation-step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Setiap kata dipecah menjadi suku kata</div>
+                        </div>
+                        <div class="explanation-step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Suku kata diurai menjadi huruf-huruf</div>
+                        </div>
+                        <div class="explanation-step">
+                            <div class="step-number">4</div>
+                            <div class="step-text">Huruf digabung kembali menjadi suku kata</div>
+                        </div>
+                        <div class="explanation-step">
+                            <div class="step-number">5</div>
+                            <div class="step-text">Suku kata disusun menjadi kata</div>
+                        </div>
+                        <div class="explanation-step">
+                            <div class="step-number">6</div>
+                            <div class="step-text">Kata digabung menjadi kalimat utuh</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="practice-toggle">
-                <button class="toggle-practice-btn" id="toggle-practice-btn">
-                    <i class="fas fa-pencil-alt"></i> Coba Latihan dengan Kalimat Ini
-                </button>
+                
+                <div class="practice-toggle">
+                    <button class="toggle-practice-btn" id="toggle-practice-btn">
+                        <i class="fas fa-pencil-alt"></i> Coba Latihan dengan Kalimat Ini
+                    </button>
+                </div>
             </div>
         </div>
         
@@ -1369,9 +1426,9 @@
         </div>
         
         <div style="text-align: center;">
-            <button class="back-btn" id="back-btn">
+            <a href="index.html" class="back-btn" id="back-btn">
                 <i class="fas fa-arrow-left"></i> Kembali ke Menu
-            </button>
+            </a>
         </div>
     </div>
 
@@ -1401,6 +1458,7 @@
             "kakak": ["ka", "kak"],
             "nenek": ["ne", "nek"],
             "anak": ["a", "nak"],
+            "makan": ["ma", "kan"],
             "memasak": ["me", "ma", "sak"],
             "membaca": ["mem", "ba", "ca"],
             "bermain": ["ber", "ma", "in"],
@@ -1408,6 +1466,39 @@
             "membeli": ["mem", "be", "li"],
             "menulis": ["me", "nu", "lis"],
             "pergi": ["per", "gi"],
+            "mohon": ["mo", "hon"],
+            "maaf": ["ma", "af"],
+            "maju": ["ma", "ju"],
+            "mesin": ["me", "sin"],
+            "mangga": ["mang", "ga"],
+            "mata": ["ma", "ta"],
+            "macan": ["ma", "can"],
+            "mawar": ["ma", "war"],
+            "mentega": ["men", "te", "ga"],
+            "manusia": ["ma", "nu", "si", "a"],
+            "matahari": ["ma", "ta", "ha", "ri"],
+            "makanan": ["ma", "ka", "nan"],
+            "minuman": ["mi", "nu", "man"],
+            "mangkuk": ["mang", "kuk"],
+            "masker": ["mas", "ker"],
+            "magnet": ["mag", "net"],
+            "mahkota": ["mah", "ko", "ta"],
+            "melon": ["me", "lon"],
+            "melihat": ["me", "li", "hat"],
+            "tolong": ["to", "long"],
+            "minta": ["min", "ta"],
+            "mobil": ["mo", "bil"],
+            "motor": ["mo", "tor"],
+            "musik": ["mu", "sik"],
+            "main": ["ma", "in"],
+            "mundur": ["mun", "dur"],
+            "makan": ["ma", "kan"],
+            "maju": ["ma", "ju"],
+            "malam": ["ma", "lam"],
+            "mandi": ["man", "di"],
+            "menyanyi": ["me", "nya", "nyi"],
+            "terima": ["te", "ri", "ma"],
+            "kasih": ["ka", "sih"],
             "bekerja": ["be", "ker", "ja"],
             "berlari": ["ber", "la", "ri"],
             "minum": ["mi", "num"],
@@ -1421,17 +1512,20 @@
             "surat": ["su", "rat"],
             "kecil": ["ke", "cil"],
             "di": ["di"],
+            "pergi": ["per", "gi"],
             "ke": ["ke"],
             "dari": ["da", "ri"],
             "pada": ["pa", "da"],
             "dengan": ["de", "ngan"],
-            "yang": ["yang"],
+            "yang": ["ya", "ng"],
             "saya": ["sa", "ya"],
             "kamu": ["ka", "mu"],
             "dia": ["di", "a"],
             "mereka": ["me", "re", "ka"],
             "kami": ["ka", "mi"],
-            "kita": ["ki", "ta"]
+            "kita": ["ki", "ta"],
+            "ini": ["i", "ni"],
+            "aku": ["a", "ku"]
         };
 
         // Database distraktor untuk setiap level
@@ -1573,7 +1667,7 @@
             };
         }
 
-        // Fungsi untuk menampilkan analisis pola ketupat
+        // Fungsi untuk menampilkan analisis pola ketupat dengan layout yang lebih baik
         function showDiamondAnalysis(sentenceData) {
             diamondAnalysis.style.display = 'block';
             analysisFlow.innerHTML = '';
@@ -1619,7 +1713,7 @@
             diamondAnalysis.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Fungsi untuk menambahkan level analisis
+        // PERBAIKAN: Fungsi untuk menambahkan level analisis dengan layout yang lebih baik
         function addFlowLevel(label, items, itemClass) {
             const level = document.createElement('div');
             level.className = 'flow-level';
@@ -1643,11 +1737,16 @@
             analysisFlow.appendChild(level);
         }
 
-        // Fungsi untuk menambahkan panah
+        // PERBAIKAN: Fungsi untuk menambahkan panah dengan kontainer yang lebih baik
         function addArrow(direction) {
+            const arrowContainer = document.createElement('div');
+            arrowContainer.className = 'arrow-container';
+            
             const arrow = document.createElement('div');
             arrow.className = `arrow-${direction}`;
-            analysisFlow.appendChild(arrow);
+            
+            arrowContainer.appendChild(arrow);
+            analysisFlow.appendChild(arrowContainer);
         }
 
         // Fungsi untuk memulai latihan dengan kalimat yang sedang dianalisis

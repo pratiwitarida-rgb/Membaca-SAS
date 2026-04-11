@@ -21,18 +21,23 @@
             display: flex;
             flex-direction: column;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0, 120, 215, 0.2);
             overflow: hidden;
-            padding: 30px;
+            padding: 40px 30px;
             position: relative;
             margin: 0 auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .container::before {
@@ -48,41 +53,57 @@
         .header {
             text-align: center;
             margin-bottom: 40px;
+            padding: 0 10px;
         }
         
         .logo {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
         }
         
         .logo i {
-            font-size: 3rem;
+            font-size: 4rem;
             color: #87ceeb;
+            background: linear-gradient(135deg, #2c7fb8, #87ceeb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 3px 5px rgba(135, 206, 235, 0.3));
         }
         
         h1 {
             color: #2c7fb8;
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
             font-weight: 700;
+            line-height: 1.2;
         }
         
         .subtitle {
             color: #5a9bc6;
-            font-size: 1.1rem;
-            font-weight: 300;
+            font-size: 1.3rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .menu-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
             margin: 30px 0;
+            padding: 0 10px;
+            flex-grow: 1;
+            align-content: center;
         }
         
         .menu-card {
             background: linear-gradient(135deg, #b3e0ff 0%, #e6f7ff 100%);
-            border-radius: 15px;
-            padding: 40px 30px;
+            border-radius: 20px;
+            padding: 50px 30px;
             text-align: center;
             box-shadow: 0 8px 20px rgba(135, 206, 235, 0.3);
             transition: all 0.3s ease;
@@ -92,6 +113,12 @@
             overflow: hidden;
             text-decoration: none;
             display: block;
+            height: 100%;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         
         .menu-card::before {
@@ -100,17 +127,17 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
+            height: 6px;
             background: linear-gradient(to right, #5a9bc6, #2c7fb8);
         }
         
         .menu-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 25px rgba(135, 206, 235, 0.4);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(135, 206, 235, 0.4);
         }
         
         .menu-card:active {
-            transform: translateY(-2px) scale(0.98);
+            transform: translateY(-3px) scale(0.98);
             box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
         }
         
@@ -131,10 +158,14 @@
         }
         
         .menu-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 5rem;
+            margin-bottom: 30px;
             color: #2c7fb8;
             transition: transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
         }
         
         .menu-card:active .menu-icon {
@@ -142,11 +173,12 @@
         }
         
         .menu-title {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: #2c7fb8;
             transition: transform 0.3s ease;
+            line-height: 1.3;
         }
         
         .menu-card:active .menu-title {
@@ -154,33 +186,39 @@
         }
         
         .menu-description {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             color: #5a9bc6;
-            line-height: 1.5;
+            line-height: 1.6;
+            max-width: 90%;
+            margin: 0 auto;
         }
         
         .back-btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             background: transparent;
             color: #5a9bc6;
             border: 2px solid #b3e0ff;
-            padding: 12px 30px;
+            padding: 15px 35px;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
-            margin-top: 20px;
+            margin-top: 30px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            width: auto;
+            min-width: 200px;
         }
         
         .back-btn:hover {
             background: #e6f7ff;
             color: #2c7fb8;
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
         }
         
         .back-btn:active {
@@ -189,12 +227,18 @@
         }
         
         .back-btn i {
-            margin-right: 8px;
+            margin-right: 10px;
             transition: transform 0.3s ease;
         }
         
         .back-btn:active i {
             transform: translateX(-3px);
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: auto;
+            padding-top: 30px;
         }
         
         .cloud {
@@ -207,24 +251,24 @@
         }
         
         .cloud-1 {
-            width: 120px;
-            height: 40px;
+            width: 150px;
+            height: 50px;
             top: 10%;
             left: 5%;
             animation: float 20s infinite linear;
         }
         
         .cloud-2 {
-            width: 180px;
-            height: 60px;
+            width: 200px;
+            height: 70px;
             bottom: 15%;
             right: 5%;
             animation: float 25s infinite linear reverse;
         }
         
         .cloud-3 {
-            width: 100px;
-            height: 35px;
+            width: 120px;
+            height: 40px;
             top: 40%;
             right: 10%;
             animation: float 18s infinite linear;
@@ -232,7 +276,7 @@
         
         .floating-books {
             position: fixed;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             color: #87ceeb;
             opacity: 0.7;
             z-index: -1;
@@ -255,41 +299,382 @@
                 transform: translateY(0) rotate(0deg);
             }
             50% {
-                transform: translateY(-15px) rotate(5deg);
+                transform: translateY(-20px) rotate(5deg);
             }
             100% {
                 transform: translateY(0) rotate(0deg);
             }
         }
         
-        @media (max-width: 768px) {
+        /* Tablet Landscape */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
             .container {
-                padding: 20px 15px;
+                padding: 30px 25px;
+                max-width: 95%;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 2.4rem;
+            }
+            
+            .menu-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+                padding: 0;
+            }
+            
+            .menu-card {
+                padding: 40px 25px;
+                min-height: 280px;
+            }
+            
+            .menu-icon {
+                font-size: 4.5rem;
+                margin-bottom: 25px;
+                height: 90px;
+            }
+            
+            .menu-title {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+            
+            .menu-description {
+                font-size: 1.2rem;
+            }
+            
+            .back-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+                min-width: 180px;
+            }
+        }
+        
+        /* Tablet Portrait */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+            .container {
+                padding: 35px 30px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .menu-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 35px;
+            }
+            
+            .menu-card {
+                padding: 45px 30px;
+                min-height: 300px;
+            }
+            
+            .menu-icon {
+                font-size: 4.8rem;
+            }
+            
+            .menu-title {
+                font-size: 2.1rem;
+            }
+        }
+        
+        /* Mobile Devices */
+        @media (max-width: 767px) {
+            body {
+                padding: 15px;
+                min-height: auto;
+            }
+            
+            .container {
+                padding: 25px 20px;
+                border-radius: 15px;
+                max-width: 100%;
+            }
+            
+            .header {
+                margin-bottom: 30px;
+                padding: 0;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+                height: 60px;
+            }
+            
+            .logo i {
+                font-size: 3.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 10px;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
             }
             
             .menu-container {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 25px;
+                margin: 20px 0;
+                padding: 0;
             }
             
             .menu-card {
-                padding: 30px 20px;
+                padding: 35px 20px;
+                min-height: 250px;
+                border-radius: 15px;
             }
             
             .menu-icon {
-                font-size: 3.5rem;
+                font-size: 4rem;
+                margin-bottom: 20px;
+                height: 80px;
             }
             
             .menu-title {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+            
+            .menu-description {
+                font-size: 1.1rem;
+                max-width: 95%;
+            }
+            
+            .back-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+                min-width: 180px;
+                margin-top: 20px;
+            }
+            
+            .cloud-1, .cloud-2, .cloud-3 {
+                display: none;
             }
             
             .floating-books {
                 display: none;
+            }
+        }
+        
+        /* Small Mobile Devices */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+                border-radius: 12px;
+            }
+            
+            .logo i {
+                font-size: 3rem;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .menu-container {
+                gap: 20px;
+                margin: 15px 0;
+            }
+            
+            .menu-card {
+                padding: 30px 15px;
+                min-height: 220px;
+                border-radius: 12px;
+            }
+            
+            .menu-icon {
+                font-size: 3.5rem;
+                margin-bottom: 15px;
+                height: 70px;
+            }
+            
+            .menu-title {
+                font-size: 1.6rem;
+                margin-bottom: 12px;
+            }
+            
+            .menu-description {
+                font-size: 1rem;
+            }
+            
+            .back-btn {
+                padding: 10px 25px;
+                font-size: 1rem;
+                min-width: 160px;
+                margin-top: 15px;
+            }
+        }
+        
+        /* Very Small Mobile Devices */
+        @media (max-width: 360px) {
+            .container {
+                padding: 18px 12px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .menu-card {
+                padding: 25px 12px;
+                min-height: 200px;
+            }
+            
+            .menu-icon {
+                font-size: 3rem;
+                height: 60px;
+            }
+            
+            .menu-title {
+                font-size: 1.4rem;
+            }
+            
+            .menu-description {
+                font-size: 0.9rem;
+            }
+            
+            .back-btn {
+                padding: 8px 20px;
+                font-size: 0.95rem;
+                min-width: 140px;
+            }
+        }
+        
+        /* Large Desktop Screens */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1300px;
+                padding: 50px 40px;
+            }
+            
+            .menu-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 50px;
+            }
+            
+            .menu-card {
+                padding: 60px 40px;
+                min-height: 350px;
+                border-radius: 25px;
+            }
+            
+            .menu-icon {
+                font-size: 6rem;
+                margin-bottom: 40px;
+                height: 120px;
+            }
+            
+            .menu-title {
+                font-size: 2.5rem;
+                margin-bottom: 25px;
+            }
+            
+            .menu-description {
+                font-size: 1.5rem;
+            }
+            
+            .back-btn {
+                padding: 18px 40px;
+                font-size: 1.3rem;
+                min-width: 250px;
+            }
+        }
+        
+        /* Height adjustments for landscape mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .header {
+                margin-bottom: 15px;
+            }
+            
+            .logo {
+                margin-bottom: 10px;
+                height: 50px;
+            }
+            
+            .logo i {
+                font-size: 2.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 8px;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .menu-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                margin: 15px 0;
+            }
+            
+            .menu-card {
+                padding: 25px 15px;
+                min-height: 200px;
+            }
+            
+            .menu-icon {
+                font-size: 3rem;
+                margin-bottom: 15px;
+                height: 60px;
+            }
+            
+            .menu-title {
+                font-size: 1.6rem;
+                margin-bottom: 10px;
+            }
+            
+            .menu-description {
+                font-size: 1rem;
+            }
+            
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+                min-width: 160px;
+                margin-top: 15px;
+            }
+        }
+        
+        /* Animasi masuk */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
@@ -307,7 +692,7 @@
     </div>
     
     <div class="container">
-        <div class="header">
+        <div class="header fade-in">
             <div class="logo">
                 <i class="fas fa-text-height"></i>
             </div>
@@ -317,7 +702,7 @@
         </div>
         
         <div class="menu-container">
-            <a href="halaman 5.html" class="menu-card" id="open-syllable">
+            <a href="halaman 5.html" class="menu-card fade-in" id="open-syllable" style="animation-delay: 0.2s;">
                 <div class="menu-icon">
                     <i class="fas fa-door-open"></i>
                 </div>
@@ -327,7 +712,7 @@
                 </div>
             </a>
             
-            <a href="halaman 6.html" class="menu-card" id="closed-syllable">
+            <a href="halaman 6.html" class="menu-card fade-in" id="closed-syllable" style="animation-delay: 0.4s;">
                 <div class="menu-icon">
                     <i class="fas fa-door-closed"></i>
                 </div>
@@ -338,19 +723,14 @@
             </a>
         </div>
         
-        <div style="text-align: center;">
-            <button class="back-btn" id="back-btn">
+        <div class="button-container">
+            <button class="back-btn fade-in" id="back-btn" style="animation-delay: 0.6s;">
                 <i class="fas fa-arrow-left"></i> Kembali ke Menu
             </button>
         </div>
     </div>
 
     <script>
-        // Elemen DOM
-        const backBtn = document.getElementById('back-btn');
-        const openSyllableBtn = document.getElementById('open-syllable');
-        const closedSyllableBtn = document.getElementById('closed-syllable');
-
         // Fungsi untuk efek klik
         function addClickEffect(element) {
             element.classList.add('click-effect');
@@ -360,23 +740,15 @@
         }
 
         // Event Listeners untuk efek klik
-        openSyllableBtn.addEventListener('click', function(e) {
+        document.getElementById('open-syllable').addEventListener('click', function(e) {
             addClickEffect(this);
-            // Bisa ditambahkan delay sebelum redirect jika perlu
-            // setTimeout(() => {
-            //     window.location.href = this.href;
-            // }, 300);
         });
 
-        closedSyllableBtn.addEventListener('click', function(e) {
+        document.getElementById('closed-syllable').addEventListener('click', function(e) {
             addClickEffect(this);
-            // Bisa ditambahkan delay sebelum redirect jika perlu
-            // setTimeout(() => {
-            //     window.location.href = this.href;
-            // }, 300);
         });
 
-        backBtn.addEventListener('click', function() {
+        document.getElementById('back-btn').addEventListener('click', function() {
             // Efek klik pada tombol kembali
             this.style.transform = 'scale(0.95)';
             setTimeout(() => {
@@ -385,7 +757,7 @@
             }, 150);
         });
 
-        // Inisialisasi
+        // Animasi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {
             // Animasi untuk elemen cloud dan buku
             const clouds = document.querySelectorAll('.cloud');
@@ -399,17 +771,20 @@
                 book.style.animationDelay = Math.random() * 3 + 's';
             });
             
-            // Animasi saat halaman dimuat
-            const menuCards = document.querySelectorAll('.menu-card');
-            menuCards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    card.style.transition = 'all 0.5s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 300 + (index * 200));
+            // Tambahkan animasi masuk untuk elemen dengan delay bertahap
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                // Atur delay animasi
+                if (!el.style.animationDelay) {
+                    el.style.animationDelay = (index * 0.1) + 's';
+                }
+            });
+        });
+        
+        // Mencegah perilaku default pada link yang memiliki href="#" (jika ada)
+        document.querySelectorAll('a[href="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
             });
         });
     </script>
